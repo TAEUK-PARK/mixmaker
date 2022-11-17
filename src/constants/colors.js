@@ -1,0 +1,6 @@
+const COLOR_GRAY = "#989898";
+const COLOR_BLUE = "#0f57e3";
+const COLOR_BLACK = "#363636";
+const COLOR_WHITE = "#DBE3E3";
+
+export { COLOR_GRAY, COLOR_BLUE, COLOR_BLACK, COLOR_WHITE };

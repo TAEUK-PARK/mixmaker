@@ -1,14 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import Icon from "../_Atoms/Icon";
-import Text from "../_Atoms/Text";
+import Icon from "../../_Atoms/Icon";
+import Text from "../../_Atoms/Text";
 
-import addNumber from "../../utils/addNumber";
+import addNumber from "../../../utils/addNumber";
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 const SelectorWrapper = styled.div`
+  background-color: gray;
   display: inline-flex;
 `;
 
@@ -45,7 +46,5 @@ function SourceSelector() {
     </SelectorWrapper>
   );
 }
-
-SourceSelector.propTypes = {};
 
 export default SourceSelector;

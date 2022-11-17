@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
+import { COLOR_BLUE, COLOR_WHITE } from "../../constants/colors";
+
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -9,13 +11,13 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   margin-left: 5px;
   margin-right: 5px;
-  background: ${(props) => props.buttonColor || "#0f57e3"};
+  background: ${(props) => props.buttonColor || COLOR_BLUE};
   width: ${(props) => props.width || "150px"};
   height: ${(props) => props.height || "60px"};
   border-radius: 50px;
 
   font-size: ${(props) => props.fontSize || "25px"};
-  color: ${(props) => props.fontColor || "white"};
+  color: ${(props) => props.fontColor || COLOR_WHITE};
 
   ${(props) => {
     if (props.big) {
