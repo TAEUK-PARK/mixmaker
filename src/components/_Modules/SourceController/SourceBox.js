@@ -42,6 +42,9 @@ function SourceBox({ visualizationData, source }) {
 
     const url = window.URL.createObjectURL(source);
     const audio = new Audio(url);
+    audio.addEventListener("ended", () => {
+      setIsPlaying(false);
+    });
 
     setAudioElement(audio);
 
