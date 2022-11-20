@@ -9,8 +9,10 @@ import addNumber from "../../../utils/addNumber";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 const SelectorWrapper = styled.div`
-  background-color: gray;
   display: inline-flex;
+  * {
+    padding-inline: 5px;
+  }
 `;
 
 function SourceSelector() {

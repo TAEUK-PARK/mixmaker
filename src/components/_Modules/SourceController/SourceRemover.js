@@ -5,7 +5,6 @@ import Icon from "../../_Atoms/Icon";
 import { ImCross } from "react-icons/im";
 
 const RemoverWrapper = styled.div`
-  background-color: gray;
   display: inline-flex;
 `;
 

@@ -3,15 +3,21 @@ import styled from "styled-components";
 import UpperBar from "./CuttedAudioController/UpperBar";
 import CuttedAudio from "./CuttedAudioController/CuttedAudio";
 
+import { COLOR_BLACK } from "../../constants/colors";
+
 const CuttedAudioWrapper = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: left;
   align-items: flex-start;
   background-color: #e3f0ff;
+  margin: 10px;
   padding: 10px;
-  overflow: scroll;
+  overflow-x: scroll;
+
+  border: 1px;
+  border-color: ${COLOR_BLACK};
+  border-style: solid;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -33,6 +39,13 @@ function CuttedAudioController() {
   return (
     <CuttedAudioWrapper>
       <UpperBar />
+      <CuttedAudio />
+      <CuttedAudio />
+      <CuttedAudio />
+      <CuttedAudio />
+      <CuttedAudio />
+      <CuttedAudio />
+      <CuttedAudio />
       <CuttedAudio />
       <CuttedAudio />
     </CuttedAudioWrapper>
