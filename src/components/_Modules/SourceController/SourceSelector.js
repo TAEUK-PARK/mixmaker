@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import Icon from "../../_Atoms/Icon";
 import Text from "../../_Atoms/Text";
@@ -15,24 +16,26 @@ const SelectorWrapper = styled.div`
   }
 `;
 
-function SourceSelector() {
-  const [numbers, setNumbers] = useState({ current: 0, total: 5 });
-
+function SourceSelector({ numberOfSources, currentSourceNumber, handleClick }) {
   const handleLeftClick = () => {
-    if (numbers.current > 0) {
-      setNumbers((prev) => {
-        return { ...prev, current: addNumber(prev.current, -1) };
+    if (currentSourceNumber > 1) {
+      handleClick((prev) => {
+        return addNumber(prev, -1);
       });
     }
   };
 
   const handleRightClick = () => {
-    if (numbers.current < numbers.total) {
-      setNumbers((prev) => {
-        return { ...prev, current: addNumber(prev.current, 1) };
+    if (currentSourceNumber < numberOfSources) {
+      handleClick((prev) => {
+        return addNumber(prev, 1);
       });
     }
   };
+
+  useEffect(() => {
+    handleClick(numberOfSources);
+  }, [numberOfSources]);
 
   return (
     <SelectorWrapper>
@@ -40,7 +43,7 @@ function SourceSelector() {
         <FaArrowAltCircleLeft />
       </Icon>
       <Text size={"18px"} selectable={"none"}>
-        {numbers.current}/{numbers.total}
+        {currentSourceNumber}/{numberOfSources}
       </Text>
       <Icon onClick={handleRightClick}>
         <FaArrowAltCircleRight />
@@ -48,5 +51,11 @@ function SourceSelector() {
     </SelectorWrapper>
   );
 }
+
+SourceSelector.propTypes = {
+  numberOfSources: PropTypes.number.isRequired,
+  currentSourceNumber: PropTypes.number.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default SourceSelector;

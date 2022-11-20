@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import SourceUploadButtons from "./SourceController/SourceAddButtons";
 import SourceToolBar from "./SourceController/SourceToolBar";
@@ -15,14 +18,25 @@ const SourceControllerWrapper = styled.div`
   border-style: solid;
 `;
 
-function SourceController() {
+function SourceController({ addSource, numberOfSources }) {
+  const [currentSourceNumber, setCurrentSourceNumber] = useState(0);
+
   return (
     <SourceControllerWrapper>
-      <SourceUploadButtons />
-      <SourceToolBar />
+      <SourceUploadButtons addSource={addSource} />
+      <SourceToolBar
+        numberOfSources={numberOfSources}
+        currentSourceNumber={currentSourceNumber}
+        handleClick={setCurrentSourceNumber}
+      />
       <SourceBox />
     </SourceControllerWrapper>
   );
 }
+
+SourceController.propTypes = {
+  addSource: PropTypes.func.isRequired,
+  numberOfSources: PropTypes.number.isRequired,
+};
 
 export default SourceController;

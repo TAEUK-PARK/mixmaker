@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import Button from "../../_Atoms/Button";
 
@@ -12,7 +13,7 @@ const RecordButtonWrapper = styled.div`
   }
 `;
 
-function SourceRecordButton() {
+function SourceRecordButton({ addSource }) {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState();
   const [stream, setStream] = useState();
@@ -40,14 +41,14 @@ function SourceRecordButton() {
 
     source.connect(recorder).connect(audioCtx.destination);
 
-    recorder.port.onmessage = ({ data }) => {
-      console.log(data);
-    };
+    // recorder.port.onmessage = ({ data }) => {
+    //   console.log(data);
+    // };
   };
 
   const handleStopClick = () => {
     media.ondataavailable = (ev) => {
-      console.log(URL.createObjectURL(ev.data));
+      addSource(ev.data);
       setIsRecording(!isRecording);
     };
 
@@ -72,5 +73,9 @@ function SourceRecordButton() {
     </RecordButtonWrapper>
   );
 }
+
+SourceRecordButton.propTypes = {
+  addSource: PropTypes.func.isRequired,
+};
 
 export default SourceRecordButton;

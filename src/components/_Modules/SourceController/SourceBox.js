@@ -50,8 +50,6 @@ function SourceBox({ children }) {
     ctx.lineTo(500, 70);
 
     ctx.stroke();
-    // console.log(ctx);
-
     ctx.closePath();
     setCanvasCtx(ctx);
   }, []);

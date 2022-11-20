@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import Button from "../../_Atoms/Button";
 
@@ -10,10 +11,10 @@ import { COLOR_GRAY } from "../../../constants/colors";
 
 const UploadButtonWrapper = styled.div``;
 
-function SourceUploadButton() {
+function SourceUploadButton({ addSource }) {
   const fileInput = useRef();
 
-  const handleOnChange = async (ev) => {
+  const handleChange = async (ev) => {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     const sourceType = getFileType(ev.target.files[0].type);
@@ -29,7 +30,7 @@ function SourceUploadButton() {
     const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
     const rawData = audioBuffer.getChannelData(0);
 
-    console.log(URL.createObjectURL(audioSource));
+    addSource(audioSource);
     console.log("rawData", rawData);
   };
 
@@ -42,11 +43,15 @@ function SourceUploadButton() {
         ref={fileInput}
         type={"file"}
         id="input-file"
-        onChange={handleOnChange}
+        onChange={handleChange}
         style={{ display: "none" }}
       ></input>
     </UploadButtonWrapper>
   );
 }
+
+SourceUploadButton.propTypes = {
+  addSource: PropTypes.func.isRequired,
+};
 
 export default SourceUploadButton;
