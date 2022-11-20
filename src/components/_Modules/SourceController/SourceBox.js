@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -29,16 +29,17 @@ const SourceWrapper = styled.div`
   }
 `;
 
-function SourceBox({ children }) {
+function SourceBox({ visualizationData }) {
   const canvasRef = useRef();
-
-  const [canvasCtx, setCanvasCtx] = useState();
-  console.log(canvasCtx);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     canvas.width = 2000;
+
+    ctx.clearRect(0, 0, canvas.width, 100);
+    ctx.fillStyle = "#ccc";
+    ctx.fillRect(0, 0, canvas.width, 100);
 
     ctx.beginPath();
     ctx.strokeStyle = COLOR_GRAY;
@@ -51,8 +52,11 @@ function SourceBox({ children }) {
 
     ctx.stroke();
     ctx.closePath();
-    setCanvasCtx(ctx);
   }, []);
+
+  useEffect(() => {
+    console.log(visualizationData);
+  }, [visualizationData]);
 
   return (
     <SourceWrapper>
@@ -62,7 +66,7 @@ function SourceBox({ children }) {
 }
 
 SourceBox.propTypes = {
-  children: PropTypes.node,
+  visualizationData: PropTypes.object,
 };
 
 export default SourceBox;

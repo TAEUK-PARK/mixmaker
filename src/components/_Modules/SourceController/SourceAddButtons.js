@@ -9,17 +9,24 @@ const SourceAddButtonsWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-function SourceAddButtons({ addSource }) {
+function SourceAddButtons({ addSource, addVisualizationData }) {
   return (
     <SourceAddButtonsWrapper>
-      <SourceRecordButton addSource={addSource} />
-      <SourceUploadButton addSource={addSource} />
+      <SourceRecordButton
+        addSource={addSource}
+        addVisualizationData={addVisualizationData}
+      />
+      <SourceUploadButton
+        addSource={addSource}
+        addVisualizationData={addVisualizationData}
+      />
     </SourceAddButtonsWrapper>
   );
 }
 
 SourceAddButtons.propTypes = {
   addSource: PropTypes.func.isRequired,
+  addVisualizationData: PropTypes.func.isRequired,
 };
 
 export default SourceAddButtons;

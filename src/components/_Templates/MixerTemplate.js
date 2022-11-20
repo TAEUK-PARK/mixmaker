@@ -28,6 +28,7 @@ function MixerTemplate() {
   return (
     <MixerWrapper>
       <SourceController
+        sources={sources}
         addSource={addSource}
         numberOfSources={sources.length}
       />

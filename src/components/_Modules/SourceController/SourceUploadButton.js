@@ -11,12 +11,10 @@ import { COLOR_GRAY } from "../../../constants/colors";
 
 const UploadButtonWrapper = styled.div``;
 
-function SourceUploadButton({ addSource }) {
+function SourceUploadButton({ addSource, addVisualizationData }) {
   const fileInput = useRef();
 
   const handleChange = async (ev) => {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
     const sourceType = getFileType(ev.target.files[0].type);
 
     if (sourceType !== "audio") {
@@ -26,12 +24,9 @@ function SourceUploadButton({ addSource }) {
     }
 
     const audioSource = ev.target.files[0];
-    const arrayBuffer = await audioSource.arrayBuffer();
-    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-    const rawData = audioBuffer.getChannelData(0);
 
     addSource(audioSource);
-    console.log("rawData", rawData);
+    addVisualizationData(audioSource);
   };
 
   return (
@@ -52,6 +47,7 @@ function SourceUploadButton({ addSource }) {
 
 SourceUploadButton.propTypes = {
   addSource: PropTypes.func.isRequired,
+  addVisualizationData: PropTypes.func.isRequired,
 };
 
 export default SourceUploadButton;
