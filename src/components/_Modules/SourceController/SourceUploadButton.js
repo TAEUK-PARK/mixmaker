@@ -13,6 +13,7 @@ import addNumber from "../../../utils/addNumber";
 const UploadButtonWrapper = styled.div``;
 
 function SourceUploadButton({
+  numberOfSources,
   addSource,
   addVisualizationData,
   handleCurrentSourceNumber,
@@ -31,9 +32,7 @@ function SourceUploadButton({
     const audioSource = ev.target.files[0];
 
     addSource(audioSource);
-    handleCurrentSourceNumber((prev) => {
-      return addNumber(prev, 1);
-    });
+    handleCurrentSourceNumber(addNumber(numberOfSources, 1));
     addVisualizationData(audioSource);
   };
 
@@ -54,6 +53,7 @@ function SourceUploadButton({
 }
 
 SourceUploadButton.propTypes = {
+  numberOfSources: PropTypes.number.isRequired,
   addSource: PropTypes.func.isRequired,
   addVisualizationData: PropTypes.func.isRequired,
   handleCurrentSourceNumber: PropTypes.func.isRequired,

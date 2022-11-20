@@ -16,6 +16,7 @@ const RecordButtonWrapper = styled.div`
 `;
 
 function SourceRecordButton({
+  numberOfSources,
   addSource,
   addVisualizationData,
   handleCurrentSourceNumber,
@@ -55,9 +56,7 @@ function SourceRecordButton({
   const handleStopClick = () => {
     media.ondataavailable = (ev) => {
       addSource(ev.data);
-      handleCurrentSourceNumber((prev) => {
-        return addNumber(prev, 1);
-      });
+      handleCurrentSourceNumber(addNumber(numberOfSources, 1));
       addVisualizationData(ev.data);
       setIsRecording(!isRecording);
     };
@@ -85,6 +84,7 @@ function SourceRecordButton({
 }
 
 SourceRecordButton.propTypes = {
+  numberOfSources: PropTypes.number.isRequired,
   addSource: PropTypes.func.isRequired,
   addVisualizationData: PropTypes.func.isRequired,
   handleCurrentSourceNumber: PropTypes.func.isRequired,

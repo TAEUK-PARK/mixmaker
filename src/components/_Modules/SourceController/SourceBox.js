@@ -36,27 +36,34 @@ function SourceBox({ visualizationData, source }) {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState();
+  const [isAudioChanged, setIsAudioChanged] = useState(false);
 
   const handlePlaySource = () => {
     if (!source) return;
 
-    const url = window.URL.createObjectURL(source);
-    const audio = new Audio(url);
-    audio.addEventListener("ended", () => {
-      setIsPlaying(false);
-    });
-
-    setAudioElement(audio);
-
-    if (isPlaying) {
+    if (isAudioChanged) {
+      const url = window.URL.createObjectURL(source);
+      const audio = new Audio(url);
+      audio.onended = () => {
+        setIsPlaying(false);
+      };
+      setIsAudioChanged(false);
+      setAudioElement(audio);
+      audio.play();
       setIsPlaying(!isPlaying);
-      audioElement.pause();
 
       return;
     }
 
+    if (isPlaying) {
+      audioElement.pause();
+      setIsPlaying(!isPlaying);
+
+      return;
+    }
+
+    audioElement.play();
     setIsPlaying(!isPlaying);
-    audio.play();
   };
 
   useEffect(() => {
@@ -67,6 +74,7 @@ function SourceBox({ visualizationData, source }) {
 
   useEffect(() => {
     setIsPlaying(false);
+    setIsAudioChanged(true);
 
     if (audioElement) {
       audioElement.pause();

@@ -10,6 +10,7 @@ const SourceAddButtonsWrapper = styled.div`
 `;
 
 function SourceAddButtons({
+  numberOfSources,
   addSource,
   addVisualizationData,
   handleCurrentSourceNumber,
@@ -17,11 +18,13 @@ function SourceAddButtons({
   return (
     <SourceAddButtonsWrapper>
       <SourceRecordButton
+        numberOfSources={numberOfSources}
         addSource={addSource}
         addVisualizationData={addVisualizationData}
         handleCurrentSourceNumber={handleCurrentSourceNumber}
       />
       <SourceUploadButton
+        numberOfSources={numberOfSources}
         addSource={addSource}
         addVisualizationData={addVisualizationData}
         handleCurrentSourceNumber={handleCurrentSourceNumber}
@@ -31,6 +34,7 @@ function SourceAddButtons({
 }
 
 SourceAddButtons.propTypes = {
+  numberOfSources: PropTypes.number.isRequired,
   addSource: PropTypes.func.isRequired,
   addVisualizationData: PropTypes.func.isRequired,
   handleCurrentSourceNumber: PropTypes.func.isRequired,

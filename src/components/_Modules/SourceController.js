@@ -45,6 +45,7 @@ function SourceController({
   return (
     <SourceControllerWrapper>
       <SourceAddButtons
+        numberOfSources={numberOfSources}
         addSource={addSource}
         addVisualizationData={addVisualizationData}
         handleCurrentSourceNumber={handleCurrentSourceNumber}
