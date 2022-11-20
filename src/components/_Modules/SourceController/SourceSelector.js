@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -16,10 +15,14 @@ const SelectorWrapper = styled.div`
   }
 `;
 
-function SourceSelector({ numberOfSources, currentSourceNumber, handleClick }) {
+function SourceSelector({
+  numberOfSources,
+  currentSourceNumber,
+  handleCurrentSourceNumber,
+}) {
   const handleLeftClick = () => {
     if (currentSourceNumber > 1) {
-      handleClick((prev) => {
+      handleCurrentSourceNumber((prev) => {
         return addNumber(prev, -1);
       });
     }
@@ -27,15 +30,11 @@ function SourceSelector({ numberOfSources, currentSourceNumber, handleClick }) {
 
   const handleRightClick = () => {
     if (currentSourceNumber < numberOfSources) {
-      handleClick((prev) => {
+      handleCurrentSourceNumber((prev) => {
         return addNumber(prev, 1);
       });
     }
   };
-
-  useEffect(() => {
-    handleClick(numberOfSources);
-  }, [numberOfSources]);
 
   return (
     <SelectorWrapper>
@@ -55,7 +54,7 @@ function SourceSelector({ numberOfSources, currentSourceNumber, handleClick }) {
 SourceSelector.propTypes = {
   numberOfSources: PropTypes.number.isRequired,
   currentSourceNumber: PropTypes.number.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleCurrentSourceNumber: PropTypes.func.isRequired,
 };
 
 export default SourceSelector;

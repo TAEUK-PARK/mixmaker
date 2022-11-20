@@ -8,10 +8,15 @@ import Button from "../../_Atoms/Button";
 import getFileType from "../../../utils/getFileType";
 
 import { COLOR_GRAY } from "../../../constants/colors";
+import addNumber from "../../../utils/addNumber";
 
 const UploadButtonWrapper = styled.div``;
 
-function SourceUploadButton({ addSource, addVisualizationData }) {
+function SourceUploadButton({
+  addSource,
+  addVisualizationData,
+  handleCurrentSourceNumber,
+}) {
   const fileInput = useRef();
 
   const handleChange = async (ev) => {
@@ -26,6 +31,9 @@ function SourceUploadButton({ addSource, addVisualizationData }) {
     const audioSource = ev.target.files[0];
 
     addSource(audioSource);
+    handleCurrentSourceNumber((prev) => {
+      return addNumber(prev, 1);
+    });
     addVisualizationData(audioSource);
   };
 
@@ -48,6 +56,7 @@ function SourceUploadButton({ addSource, addVisualizationData }) {
 SourceUploadButton.propTypes = {
   addSource: PropTypes.func.isRequired,
   addVisualizationData: PropTypes.func.isRequired,
+  handleCurrentSourceNumber: PropTypes.func.isRequired,
 };
 
 export default SourceUploadButton;

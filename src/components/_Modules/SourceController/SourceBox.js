@@ -1,13 +1,15 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { COLOR_BLACK, COLOR_GRAY } from "../../../constants/colors";
+import { COLOR_BLACK } from "../../../constants/colors";
+
+import drawSoundWave from "../../../utils/audio/drawSoundWave";
 
 const SourceWrapper = styled.div`
   width: 100%;
-  height: 100px;
+  height: 120px;
   background-color: #e3f0ff;
 
   border: 1px;
@@ -29,44 +31,55 @@ const SourceWrapper = styled.div`
   }
 `;
 
-function SourceBox({ visualizationData }) {
+function SourceBox({ visualizationData, source }) {
   const canvasRef = useRef();
 
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioElement, setAudioElement] = useState();
+
+  const handlePlaySource = () => {
+    if (!source) return;
+
+    const url = window.URL.createObjectURL(source);
+    const audio = new Audio(url);
+
+    setAudioElement(audio);
+
+    if (isPlaying) {
+      setIsPlaying(!isPlaying);
+      audioElement.pause();
+
+      return;
+    }
+
+    setIsPlaying(!isPlaying);
+    audio.play();
+  };
+
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    canvas.width = 2000;
-
-    ctx.clearRect(0, 0, canvas.width, 100);
-    ctx.fillStyle = "#ccc";
-    ctx.fillRect(0, 0, canvas.width, 100);
-
-    ctx.beginPath();
-    ctx.strokeStyle = COLOR_GRAY;
-    ctx.fillStyle = "white";
-    ctx.lineWidth = 5;
-    ctx.lineCap = "round";
-
-    ctx.moveTo(500, 30);
-    ctx.lineTo(500, 70);
-
-    ctx.stroke();
-    ctx.closePath();
-  }, []);
-
-  useEffect(() => {
-    console.log(visualizationData);
+    if (visualizationData) {
+      drawSoundWave(canvasRef, visualizationData);
+    }
   }, [visualizationData]);
+
+  useEffect(() => {
+    setIsPlaying(false);
+
+    if (audioElement) {
+      audioElement.pause();
+    }
+  }, [source]);
 
   return (
     <SourceWrapper>
-      <canvas ref={canvasRef}></canvas>
+      <canvas onClick={handlePlaySource} ref={canvasRef}></canvas>
     </SourceWrapper>
   );
 }
 
 SourceBox.propTypes = {
   visualizationData: PropTypes.object,
+  source: PropTypes.object,
 };
 
 export default SourceBox;

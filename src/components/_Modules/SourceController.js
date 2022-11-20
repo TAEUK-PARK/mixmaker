@@ -22,8 +22,13 @@ const SourceControllerWrapper = styled.div`
   border-style: solid;
 `;
 
-function SourceController({ sources, addSource, numberOfSources }) {
-  const [currentSourceNumber, setCurrentSourceNumber] = useState(0);
+function SourceController({
+  sources,
+  addSource,
+  numberOfSources,
+  currentSourceNumber,
+  handleCurrentSourceNumber,
+}) {
   const [visualizationData, setVisualizationData] = useState([]);
 
   const addVisualizationData = async (source) => {
@@ -42,16 +47,18 @@ function SourceController({ sources, addSource, numberOfSources }) {
       <SourceAddButtons
         addSource={addSource}
         addVisualizationData={addVisualizationData}
+        handleCurrentSourceNumber={handleCurrentSourceNumber}
       />
       <SourceToolBar
         numberOfSources={numberOfSources}
         currentSourceNumber={currentSourceNumber}
-        handleClick={setCurrentSourceNumber}
+        handleCurrentSourceNumber={handleCurrentSourceNumber}
       />
       <SourceBox
         visualizationData={
           visualizationData[getIndexFromLength(currentSourceNumber)]
         }
+        source={sources[getIndexFromLength(currentSourceNumber)]}
       />
     </SourceControllerWrapper>
   );
@@ -61,6 +68,8 @@ SourceController.propTypes = {
   sources: PropTypes.array.isRequired,
   addSource: PropTypes.func.isRequired,
   numberOfSources: PropTypes.number.isRequired,
+  currentSourceNumber: PropTypes.number,
+  handleCurrentSourceNumber: PropTypes.func.isRequired,
 };
 
 export default SourceController;

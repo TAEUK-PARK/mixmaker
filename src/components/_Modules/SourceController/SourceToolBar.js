@@ -9,13 +9,17 @@ const SourceToolBarWrapper = styled.div`
   justify-content: space-between;
 `;
 
-function SourceToolBar({ numberOfSources, currentSourceNumber, handleClick }) {
+function SourceToolBar({
+  numberOfSources,
+  currentSourceNumber,
+  handleCurrentSourceNumber,
+}) {
   return (
     <SourceToolBarWrapper>
       <SourceSelector
         numberOfSources={numberOfSources}
         currentSourceNumber={currentSourceNumber}
-        handleClick={handleClick}
+        handleCurrentSourceNumber={handleCurrentSourceNumber}
       />
       <SourceRemover />
     </SourceToolBarWrapper>
@@ -25,7 +29,7 @@ function SourceToolBar({ numberOfSources, currentSourceNumber, handleClick }) {
 SourceToolBar.propTypes = {
   numberOfSources: PropTypes.number.isRequired,
   currentSourceNumber: PropTypes.number.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleCurrentSourceNumber: PropTypes.func.isRequired,
 };
 
 export default SourceToolBar;

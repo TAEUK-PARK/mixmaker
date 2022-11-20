@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
 
@@ -10,9 +10,9 @@ const MixerWrapper = styled.div``;
 
 function MixerTemplate() {
   const [sources, setSources] = useState([]);
+  const [currentSourceNumber, setCurrentSourceNumber] = useState(0);
 
   const addSource = (source) => {
-    console.log("addSource");
     setSources((prev) => {
       const result = prev.slice();
       result.push(source);
@@ -21,16 +21,14 @@ function MixerTemplate() {
     });
   };
 
-  useEffect(() => {
-    console.log(sources);
-  }, [sources]);
-
   return (
     <MixerWrapper>
       <SourceController
         sources={sources}
         addSource={addSource}
         numberOfSources={sources.length}
+        currentSourceNumber={currentSourceNumber}
+        handleCurrentSourceNumber={setCurrentSourceNumber}
       />
       <CuttedAudioController />
       <MixedAuidoController />

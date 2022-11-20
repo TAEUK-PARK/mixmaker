@@ -7,13 +7,19 @@ import Button from "../../_Atoms/Button";
 
 import { COLOR_GRAY, COLOR_RED, COLOR_WHITE } from "../../../constants/colors";
 
+import addNumber from "../../../utils/addNumber";
+
 const RecordButtonWrapper = styled.div`
   * {
     user-select: none;
   }
 `;
 
-function SourceRecordButton({ addSource, addVisualizationData }) {
+function SourceRecordButton({
+  addSource,
+  addVisualizationData,
+  handleCurrentSourceNumber,
+}) {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState();
   const [stream, setStream] = useState();
@@ -49,6 +55,9 @@ function SourceRecordButton({ addSource, addVisualizationData }) {
   const handleStopClick = () => {
     media.ondataavailable = (ev) => {
       addSource(ev.data);
+      handleCurrentSourceNumber((prev) => {
+        return addNumber(prev, 1);
+      });
       addVisualizationData(ev.data);
       setIsRecording(!isRecording);
     };
@@ -78,6 +87,7 @@ function SourceRecordButton({ addSource, addVisualizationData }) {
 SourceRecordButton.propTypes = {
   addSource: PropTypes.func.isRequired,
   addVisualizationData: PropTypes.func.isRequired,
+  handleCurrentSourceNumber: PropTypes.func.isRequired,
 };
 
 export default SourceRecordButton;
