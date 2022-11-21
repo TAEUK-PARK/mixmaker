@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { COLOR_BLACK } from "../../../constants/colors";
 
 import drawSoundWave from "../../../utils/audio/drawSoundWave";
+import drawSlider from "../../../utils/audio/drawSlider";
 
 const SourceWrapper = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ function SourceBox({ visualizationData, source }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState();
   const [isAudioChanged, setIsAudioChanged] = useState(false);
+  const [drawInterval, setDrawInterval] = useState();
 
   const handlePlaySource = () => {
     if (!source) return;
@@ -49,8 +51,19 @@ function SourceBox({ visualizationData, source }) {
       };
       setIsAudioChanged(false);
       setAudioElement(audio);
-      audio.play();
       setIsPlaying(!isPlaying);
+
+      drawSoundWave(canvasRef, visualizationData);
+
+      const interval = drawSlider(
+        canvasRef,
+        visualizationData,
+        setIsAudioChanged,
+        0,
+      );
+      setDrawInterval(interval);
+
+      audio.play();
 
       return;
     }
@@ -58,11 +71,24 @@ function SourceBox({ visualizationData, source }) {
     if (isPlaying) {
       audioElement.pause();
       setIsPlaying(!isPlaying);
+      clearInterval(drawInterval);
 
       return;
     }
 
+    const { currentTime } = audioElement;
+
+    drawSoundWave(canvasRef, visualizationData);
+
+    const interval = drawSlider(
+      canvasRef,
+      visualizationData,
+      setIsAudioChanged,
+      currentTime + 0.125, //?? 왜 이럴까요..
+    );
+
     audioElement.play();
+    setDrawInterval(interval);
     setIsPlaying(!isPlaying);
   };
 
@@ -83,7 +109,13 @@ function SourceBox({ visualizationData, source }) {
 
   return (
     <SourceWrapper>
-      <canvas onClick={handlePlaySource} ref={canvasRef}></canvas>
+      <canvas
+        onClick={handlePlaySource}
+        onMouseDown={(ev) => {
+          console.log(ev);
+        }}
+        ref={canvasRef}
+      ></canvas>
     </SourceWrapper>
   );
 }

@@ -1,4 +1,4 @@
-import { COLOR_BLACK, COLOR_WHITE } from "../../constants/colors";
+import { COLOR_WHITE, COLOR_BLACK } from "../../constants/colors";
 
 const drawSoundWave = (canvasRef, visualizationData) => {
   const canvas = canvasRef.current;
@@ -10,9 +10,10 @@ const drawSoundWave = (canvasRef, visualizationData) => {
   canvas.width = totalWidth * multiflier;
   canvas.height = height;
 
-  ctx.clearRect(0, 0, canvas.width, 100);
+  ctx.clearRect(0, 0, canvas.width, height);
   ctx.fillStyle = COLOR_BLACK;
-  ctx.fillRect(0, 0, canvas.width, 100);
+  ctx.fillRect(0, 0, canvas.width, height);
+
   ctx.beginPath();
   ctx.strokeStyle = COLOR_WHITE;
   ctx.fillStyle = COLOR_WHITE;

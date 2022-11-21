@@ -12,6 +12,7 @@ import getIndexFromLength from "../../utils/getIndexFromLength";
 import { COLOR_BLACK } from "../../constants/colors";
 import getRawData from "../../utils/audio/getRawData";
 import getSample from "../../utils/audio/getSample";
+import SourcePlayer from "./SourceController/SourcePlayer";
 
 const SourceControllerWrapper = styled.div`
   padding: 20px;
@@ -20,6 +21,11 @@ const SourceControllerWrapper = styled.div`
   border: 1px;
   border-color: ${COLOR_BLACK};
   border-style: solid;
+`;
+
+const SourcePlayerWrapper = styled.div`
+  display: flex;
+  margin-top: 10px;
 `;
 
 function SourceController({
@@ -61,6 +67,9 @@ function SourceController({
         }
         source={sources[getIndexFromLength(currentSourceNumber)]}
       />
+      <SourcePlayerWrapper>
+        <SourcePlayer />
+      </SourcePlayerWrapper>
     </SourceControllerWrapper>
   );
 }
