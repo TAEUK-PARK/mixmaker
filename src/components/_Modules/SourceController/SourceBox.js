@@ -1,4 +1,5 @@
-import { useRef, useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { forwardRef, useEffect, useState } from "react";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -32,97 +33,21 @@ const SourceWrapper = styled.div`
   }
 `;
 
-function SourceBox({ visualizationData, source }) {
-  const canvasRef = useRef();
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioElement, setAudioElement] = useState();
-  const [isAudioChanged, setIsAudioChanged] = useState(false);
-  const [drawInterval, setDrawInterval] = useState();
-
-  const handlePlaySource = () => {
-    if (!source) return;
-
-    if (isAudioChanged) {
-      const url = window.URL.createObjectURL(source);
-      const audio = new Audio(url);
-      audio.onended = () => {
-        setIsPlaying(false);
-      };
-      setIsAudioChanged(false);
-      setAudioElement(audio);
-      setIsPlaying(!isPlaying);
-
-      drawSoundWave(canvasRef, visualizationData);
-
-      const interval = drawSlider(
-        canvasRef,
-        visualizationData,
-        setIsAudioChanged,
-        0,
-      );
-      setDrawInterval(interval);
-
-      audio.play();
-
-      return;
-    }
-
-    if (isPlaying) {
-      audioElement.pause();
-      setIsPlaying(!isPlaying);
-      clearInterval(drawInterval);
-
-      return;
-    }
-
-    const { currentTime } = audioElement;
-
-    drawSoundWave(canvasRef, visualizationData);
-
-    const interval = drawSlider(
-      canvasRef,
-      visualizationData,
-      setIsAudioChanged,
-      currentTime + 0.125, //?? 왜 이럴까요..
-    );
-
-    audioElement.play();
-    setDrawInterval(interval);
-    setIsPlaying(!isPlaying);
-  };
-
-  useEffect(() => {
-    if (visualizationData) {
-      drawSoundWave(canvasRef, visualizationData);
-    }
-  }, [visualizationData]);
-
-  useEffect(() => {
-    setIsPlaying(false);
-    setIsAudioChanged(true);
-
-    if (audioElement) {
-      audioElement.pause();
-    }
-  }, [source]);
-
+const SourceBox = forwardRef((props, ref) => {
   return (
     <SourceWrapper>
       <canvas
-        onClick={handlePlaySource}
         onMouseDown={(ev) => {
           console.log(ev);
         }}
-        ref={canvasRef}
+        ref={ref}
       ></canvas>
     </SourceWrapper>
   );
-}
+});
 
-SourceBox.propTypes = {
-  visualizationData: PropTypes.object,
-  source: PropTypes.object,
-};
+SourceBox.propTypes = {};
+
+SourceBox.displayName = "SourceBox";
 
 export default SourceBox;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -35,6 +35,8 @@ function SourceController({
   currentSourceNumber,
   handleCurrentSourceNumber,
 }) {
+  const canvasRef = useRef();
+
   const [visualizationData, setVisualizationData] = useState([]);
 
   const addVisualizationData = async (source) => {
@@ -66,9 +68,16 @@ function SourceController({
           visualizationData[getIndexFromLength(currentSourceNumber)]
         }
         source={sources[getIndexFromLength(currentSourceNumber)]}
+        ref={canvasRef}
       />
       <SourcePlayerWrapper>
-        <SourcePlayer />
+        <SourcePlayer
+          visualizationData={
+            visualizationData[getIndexFromLength(currentSourceNumber)]
+          }
+          source={sources[getIndexFromLength(currentSourceNumber)]}
+          canvasRef={canvasRef}
+        />
       </SourcePlayerWrapper>
     </SourceControllerWrapper>
   );
