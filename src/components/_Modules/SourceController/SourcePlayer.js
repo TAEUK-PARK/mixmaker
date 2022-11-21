@@ -114,6 +114,11 @@ function SourcePlayer({ canvasRef, visualizationData, source }) {
     setIsPlaying(false);
     setIsAudioChanged(true);
 
+    if (visualizationData) {
+      clearInterval(drawInterval);
+      drawSoundWave(canvasRef, visualizationData);
+    }
+
     if (audioElement) {
       audioElement.pause();
     }
