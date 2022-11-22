@@ -111,7 +111,12 @@ function SourcePlayer({ canvasRef, visualizationData, source }) {
   };
 
   useEffect(() => {
-    setIsPlaying(false);
+    setIsPlaying((prev) => {
+      return {
+        ...prev,
+        state: false,
+      };
+    });
     setIsAudioChanged(true);
 
     if (visualizationData) {
