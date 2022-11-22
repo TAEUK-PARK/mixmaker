@@ -3,6 +3,7 @@ import getIndexFromLength from "../getIndexFromLength";
 
 const drawSlider = (
   canvasRef,
+  wrapperRef,
   visualizationData,
   setIsAudioChanged,
   currentTime,
@@ -48,6 +49,7 @@ const drawSlider = (
   };
 
   let { lineOffsetX, index } = getCurrentIndex(currentSample);
+  wrapperRef.current.scrollLeft = lineOffsetX - 100;
 
   const drawInterval = setInterval(() => {
     if (index === getIndexFromLength(sampleArray.length)) {

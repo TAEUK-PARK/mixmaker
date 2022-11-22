@@ -36,6 +36,7 @@ function SourceController({
   handleCurrentSourceNumber,
 }) {
   const canvasRef = useRef();
+  const wrapperRef = useRef();
 
   const [visualizationData, setVisualizationData] = useState([]);
 
@@ -68,7 +69,7 @@ function SourceController({
           visualizationData[getIndexFromLength(currentSourceNumber)]
         }
         source={sources[getIndexFromLength(currentSourceNumber)]}
-        ref={canvasRef}
+        ref={{ canvasRef, wrapperRef }}
       />
       <SourcePlayerWrapper>
         <SourcePlayer
@@ -77,6 +78,7 @@ function SourceController({
           }
           source={sources[getIndexFromLength(currentSourceNumber)]}
           canvasRef={canvasRef}
+          wrapperRef={wrapperRef}
         />
       </SourcePlayerWrapper>
     </SourceControllerWrapper>

@@ -36,7 +36,7 @@ const SourceWrapper = styled.div`
 `;
 
 const SourceBox = forwardRef((props, ref) => {
-  const wrapperRef = useRef();
+  const { canvasRef, wrapperRef } = ref;
   const [isDragging, setIsDragging] = useState(false);
   const [prevMouseX, setPrevMouseX] = useState(NaN);
   const [scrollInterval, setScrollInterval] = useState();
@@ -105,7 +105,7 @@ const SourceBox = forwardRef((props, ref) => {
             console.log("드래그 종료");
           }
         }}
-        ref={ref}
+        ref={canvasRef}
       ></canvas>
     </SourceWrapper>
   );

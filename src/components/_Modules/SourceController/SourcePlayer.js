@@ -19,7 +19,7 @@ const SourcePlayerWrapper = styled.div`
   margin: 0 auto;
 `;
 
-function SourcePlayer({ canvasRef, visualizationData, source }) {
+function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
     iconColor: COLOR_BLACK,
@@ -56,6 +56,7 @@ function SourcePlayer({ canvasRef, visualizationData, source }) {
 
       const interval = drawSlider(
         canvasRef,
+        wrapperRef,
         visualizationData,
         setIsAudioChanged,
         0,
@@ -73,6 +74,7 @@ function SourcePlayer({ canvasRef, visualizationData, source }) {
 
     const interval = drawSlider(
       canvasRef,
+      wrapperRef,
       visualizationData,
       setIsAudioChanged,
       currentTime + 0.125,
@@ -95,7 +97,9 @@ function SourcePlayer({ canvasRef, visualizationData, source }) {
   };
 
   const handleStopClick = () => {
-    if (!source) return;
+    wrapperRef.current.scrollLeft = 0;
+
+    if (!source || !audioElement) return;
 
     setIsPlaying((prev) => {
       return {
@@ -156,6 +160,9 @@ SourcePlayer.propTypes = {
   source: PropTypes.object,
   canvasRef: PropTypes.shape({
     current: PropTypes.instanceOf(HTMLCanvasElement),
+  }),
+  wrapperRef: PropTypes.shape({
+    current: PropTypes.instanceOf(HTMLDivElement),
   }),
 };
 
