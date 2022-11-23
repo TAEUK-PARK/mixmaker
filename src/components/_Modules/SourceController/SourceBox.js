@@ -10,6 +10,7 @@ import drawSoundWave from "../../../utils/audio/drawSoundWave";
 import drawSlider from "../../../utils/audio/drawSlider";
 
 import throttle from "../../../utils/throttle";
+import getCurrentMouseX from "../../../utils/audio/getCurrentMouseX";
 
 const SourceWrapper = styled.div`
   width: 100%;
@@ -35,54 +36,65 @@ const SourceWrapper = styled.div`
   }
 `;
 
-const SourceBox = forwardRef((props, ref) => {
+const SourceBox = forwardRef(({ setAudioSection }, ref) => {
   const { canvasRef, wrapperRef } = ref;
   const [isDragging, setIsDragging] = useState(false);
   const [prevMouseX, setPrevMouseX] = useState(NaN);
   const [scrollInterval, setScrollInterval] = useState();
 
-  const throttledHandleDrag = useCallback(
-    throttle((ev, bound, prevMouseX, scrollInterval) => {
-      const { scrollLeft, clientWidth } = wrapperRef.current;
-      const { clientX, pageX } = ev;
-      const { left } = bound;
+  const handleDrag = (ev, prevMouseX, scrollInterval, setAudioSection) => {
+    const { scrollLeft, clientWidth } = wrapperRef.current;
+    const { pageX } = ev;
 
-      const currentMouseX = clientX - left;
-      const currentCanvasWidth = clientWidth + scrollLeft;
+    const currentMouseX = getCurrentMouseX(ev);
+    const currentCanvasWidth = clientWidth + scrollLeft;
 
-      const restSpaceRight = currentCanvasWidth - currentMouseX;
-      const restSpaceLeft = currentMouseX - scrollLeft;
+    const restSpaceRight = currentCanvasWidth - currentMouseX;
+    const restSpaceLeft = currentMouseX - scrollLeft;
 
-      setPrevMouseX(pageX);
+    setPrevMouseX(pageX);
 
-      const getMovingDirection = () => {
-        if (prevMouseX === pageX) return "stop";
+    const getMovingDirection = () => {
+      if (prevMouseX === pageX) return "stop";
 
-        return prevMouseX < pageX ? "right" : "left";
-      };
+      return prevMouseX < pageX ? "right" : "left";
+    };
 
-      const movingDirection = getMovingDirection();
+    const movingDirection = getMovingDirection();
 
-      clearInterval(scrollInterval);
+    clearInterval(scrollInterval);
 
-      const interval = setInterval(() => {
-        if (restSpaceRight <= 150 && movingDirection === "right") {
-          const modifier = 1500 / restSpaceRight;
-          wrapperRef.current.scrollLeft =
-            wrapperRef.current.scrollLeft + modifier;
-        }
+    const interval = setInterval(() => {
+      if (restSpaceRight <= 150 && movingDirection === "right") {
+        const modifier = 1500 / restSpaceRight;
+        wrapperRef.current.scrollLeft =
+          wrapperRef.current.scrollLeft + modifier;
 
-        if (restSpaceLeft <= 150 && movingDirection === "left") {
-          const modifier = 1500 / restSpaceLeft;
-          wrapperRef.current.scrollLeft =
-            wrapperRef.current.scrollLeft - modifier;
-        }
-      }, 50);
+        setAudioSection((prev) => {
+          return { ...prev, head: getCurrentMouseX(ev) };
+        });
+      }
 
-      setScrollInterval(interval);
-    }, 50),
-    [],
-  );
+      if (restSpaceLeft <= 150 && movingDirection === "left") {
+        const modifier = 1500 / restSpaceLeft;
+        wrapperRef.current.scrollLeft =
+          wrapperRef.current.scrollLeft - modifier;
+
+        setAudioSection((prev) => {
+          return { ...prev, head: getCurrentMouseX(ev) };
+        });
+      }
+    }, 50);
+
+    setScrollInterval(interval);
+  };
+
+  const handleCut = () => {
+    console.log("handlecut");
+  };
+
+  const throttledHandleDrag = useCallback(throttle(handleDrag, 50), []);
+  const throttledHandleCut = useCallback(throttle(handleCut, 50), []);
 
   return (
     <SourceWrapper ref={wrapperRef}>
@@ -90,16 +102,32 @@ const SourceBox = forwardRef((props, ref) => {
         onMouseDown={(ev) => {
           if (!isDragging) {
             setIsDragging(true);
+            setAudioSection((prev) => {
+              return {
+                ...prev,
+                anchor: getCurrentMouseX(ev),
+                head: getCurrentMouseX(ev),
+              };
+            });
             console.log("드래그 시작", wrapperRef.current.clientWidth);
           }
         }}
         onMouseMove={(ev) => {
           if (isDragging) {
-            const bound = ev.target.getBoundingClientRect();
-            throttledHandleDrag(ev, bound, prevMouseX, scrollInterval);
+            setAudioSection((prev) => {
+              return { ...prev, head: getCurrentMouseX(ev) };
+            });
+            throttledHandleDrag(
+              ev,
+              prevMouseX,
+              scrollInterval,
+              setAudioSection,
+            );
+            throttledHandleCut();
           }
         }}
         onMouseUp={(ev) => {
+          clearInterval(scrollInterval);
           if (isDragging) {
             setIsDragging(false);
             console.log("드래그 종료");
@@ -111,7 +139,9 @@ const SourceBox = forwardRef((props, ref) => {
   );
 });
 
-SourceBox.propTypes = {};
+SourceBox.propTypes = {
+  setAudioSection: PropTypes.func.isRequired,
+};
 
 SourceBox.displayName = "SourceBox";
 

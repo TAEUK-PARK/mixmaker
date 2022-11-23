@@ -39,6 +39,10 @@ function SourceController({
   const wrapperRef = useRef();
 
   const [visualizationData, setVisualizationData] = useState([]);
+  const [audioSection, setAudioSection] = useState({
+    anchor: 0,
+    head: 0,
+  });
 
   const addVisualizationData = async (source) => {
     const sampleData = getSample(await getRawData(source));
@@ -65,10 +69,7 @@ function SourceController({
         handleCurrentSourceNumber={handleCurrentSourceNumber}
       />
       <SourceBox
-        visualizationData={
-          visualizationData[getIndexFromLength(currentSourceNumber)]
-        }
-        source={sources[getIndexFromLength(currentSourceNumber)]}
+        setAudioSection={setAudioSection}
         ref={{ canvasRef, wrapperRef }}
       />
       <SourcePlayerWrapper>
@@ -77,6 +78,8 @@ function SourceController({
             visualizationData[getIndexFromLength(currentSourceNumber)]
           }
           source={sources[getIndexFromLength(currentSourceNumber)]}
+          audioSection={audioSection}
+          setAudioSection={setAudioSection}
           canvasRef={canvasRef}
           wrapperRef={wrapperRef}
         />

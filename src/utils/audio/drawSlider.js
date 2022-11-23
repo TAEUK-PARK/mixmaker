@@ -1,4 +1,12 @@
+import {
+  SAMPLE_PER_SEC,
+  WAVE_WIDTH_MULTIFLIER,
+} from "../../constants/audioProperties";
 import { COLOR_RED } from "../../constants/colors";
+import {
+  HEIGHT,
+  LINE_LENGTH_MULTIFLIER,
+} from "../../constants/drawingProperties";
 import getIndexFromLength from "../getIndexFromLength";
 
 const drawSlider = (
@@ -8,19 +16,15 @@ const drawSlider = (
   setIsAudioChanged,
   currentTime,
 ) => {
-  console.log(currentTime);
   const canvas = canvasRef.current;
   const ctx = canvas.getContext("2d");
   const { sampleArray } = visualizationData;
-  const multiflier = 3;
-  const height = 100;
 
   ctx.beginPath();
   ctx.strokeStyle = COLOR_RED;
   ctx.fillStyle = COLOR_RED;
 
-  const currentSample = Math.floor(currentTime * 24);
-  const lineLengthMultiflier = 2;
+  const currentSample = Math.floor(currentTime * SAMPLE_PER_SEC);
 
   const getCurrentIndex = (currentSample) => {
     if (currentSample === 0) return { lineOffsetX: 0, index: 0 };
@@ -28,14 +32,15 @@ const drawSlider = (
     const getLineOffsetXAndIndex = (lineOffsetX, index) => {
       if (index === currentSample) return { lineOffsetX, index };
 
-      const modifiedValue = sampleArray[index] * height * lineLengthMultiflier;
+      const modifiedValue =
+        sampleArray[index] * HEIGHT * LINE_LENGTH_MULTIFLIER;
       const lineLength = modifiedValue <= 100 ? modifiedValue : 100;
-      const lineOffsetY = (height - lineLength) / 2;
+      const lineOffsetY = (HEIGHT - lineLength) / 2;
 
       ctx.moveTo(lineOffsetX, lineOffsetY);
       ctx.lineTo(lineOffsetX, lineOffsetY + lineLength);
 
-      lineOffsetX += multiflier;
+      lineOffsetX += WAVE_WIDTH_MULTIFLIER;
       index += 1;
       ctx.stroke();
 
@@ -57,17 +62,17 @@ const drawSlider = (
       clearInterval(drawInterval);
     }
 
-    const modifiedValue = sampleArray[index] * height * lineLengthMultiflier;
+    const modifiedValue = sampleArray[index] * HEIGHT * LINE_LENGTH_MULTIFLIER;
     const lineLength = modifiedValue <= 100 ? modifiedValue : 100;
-    const lineOffsetY = (height - lineLength) / 2;
+    const lineOffsetY = (HEIGHT - lineLength) / 2;
 
     ctx.moveTo(lineOffsetX, lineOffsetY);
     ctx.lineTo(lineOffsetX, lineOffsetY + lineLength);
 
-    lineOffsetX += multiflier;
+    lineOffsetX += WAVE_WIDTH_MULTIFLIER;
     index += 1;
     ctx.stroke();
-  }, 1000 / 24);
+  }, 1000 / SAMPLE_PER_SEC);
 
   return drawInterval;
 };

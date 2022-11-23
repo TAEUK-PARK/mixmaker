@@ -13,17 +13,33 @@ import { COLOR_BLACK } from "../../../constants/colors";
 
 import drawSoundWave from "../../../utils/audio/drawSoundWave";
 import drawSlider from "../../../utils/audio/drawSlider";
+import getLargestNumber from "../../../utils/getLargestNumber";
+import {
+  SAMPLE_PER_SEC,
+  WAVE_WIDTH_MULTIFLIER,
+} from "../../../constants/audioProperties";
+import getAudioEleFromSource from "../../../utils/audio/getAudioEleFromSource";
+import drawSection from "../../../utils/audio/drawSection";
+import getSmallestNumber from "../../../utils/getSmallestNumber";
 
 const SourcePlayerWrapper = styled.div`
   display: inline-flex;
   margin: 0 auto;
 `;
 
-function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
+function SourcePlayer({
+  canvasRef,
+  wrapperRef,
+  visualizationData,
+  source,
+  audioSection,
+  setAudioSection,
+}) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
     iconColor: COLOR_BLACK,
   });
+  const [playingTimer, setPlayingTimer] = useState();
   const [isAudioChanged, setIsAudioChanged] = useState(false);
   const [audioElement, setAudioElement] = useState();
   const [drawInterval, setDrawInterval] = useState();
@@ -38,9 +54,36 @@ function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
       };
     });
 
+    if (audioSection.anchor !== 0 || audioSection.head !== 0) {
+      const { anchor, head } = audioSection;
+      const from = getSmallestNumber(anchor, head);
+      const to = getLargestNumber(anchor, head);
+
+      const audio = audioElement ? audioElement : getAudioEleFromSource(source);
+      setAudioElement(audio);
+
+      audio.currentTime = from / (SAMPLE_PER_SEC * WAVE_WIDTH_MULTIFLIER);
+      const timer = setTimeout(() => {
+        setIsPlaying((prev) => {
+          return {
+            ...prev,
+            state: false,
+          };
+        });
+
+        audio.pause();
+      }, ((to - from) * 1000) / (SAMPLE_PER_SEC * WAVE_WIDTH_MULTIFLIER));
+      setPlayingTimer(timer);
+
+      audio.play();
+
+      return;
+    }
+
     if (isAudioChanged) {
-      const url = window.URL.createObjectURL(source);
-      const audio = new Audio(url);
+      const audio = getAudioEleFromSource(source);
+      setAudioElement(audio);
+
       audio.onended = () => {
         setIsPlaying((prev) => {
           return {
@@ -50,7 +93,6 @@ function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
         });
       };
       setIsAudioChanged(false);
-      setAudioElement(audio);
 
       drawSoundWave(canvasRef, visualizationData);
 
@@ -93,6 +135,7 @@ function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
     });
 
     audioElement.pause();
+    clearTimeout(playingTimer);
     clearInterval(drawInterval);
   };
 
@@ -110,8 +153,12 @@ function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
 
     audioElement.pause();
     audioElement.currentTime = 0;
+    clearTimeout(playingTimer);
     clearInterval(drawInterval);
-    drawSoundWave(canvasRef, visualizationData);
+
+    if (audioSection.anchor === 0 && audioSection.head === 0) {
+      drawSoundWave(canvasRef, visualizationData);
+    }
   };
 
   useEffect(() => {
@@ -139,6 +186,21 @@ function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
     }
   }, [visualizationData]);
 
+  useEffect(() => {
+    setAudioSection(() => {
+      return { anchor: 0, head: 0 };
+    });
+  }, [isAudioChanged]);
+
+  useEffect(() => {
+    //section 바뀔시 할 것
+    // 1. drawBar(yello?)
+    if (visualizationData) {
+      drawSoundWave(canvasRef, visualizationData);
+      drawSection(canvasRef, audioSection, visualizationData);
+    }
+  }, [audioSection]);
+
   return (
     <SourcePlayerWrapper>
       <Icon
@@ -158,6 +220,8 @@ function SourcePlayer({ canvasRef, wrapperRef, visualizationData, source }) {
 SourcePlayer.propTypes = {
   visualizationData: PropTypes.object,
   source: PropTypes.object,
+  audioSection: PropTypes.object.isRequired,
+  setAudioSection: PropTypes.func.isRequired,
   canvasRef: PropTypes.shape({
     current: PropTypes.instanceOf(HTMLCanvasElement),
   }),

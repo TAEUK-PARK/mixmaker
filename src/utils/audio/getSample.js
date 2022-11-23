@@ -1,11 +1,11 @@
+import { SAMPLE_PER_SEC } from "../../constants/audioProperties";
 import getAverage from "../getAverage";
 import getIndexFromLength from "../getIndexFromLength";
 
 const getSample = (audioData) => {
   const { rawData, duration, sampleRate } = audioData;
-  const samplePerSec = 24;
-  const totalWidth = duration * samplePerSec;
-  const samplingSize = Math.floor(sampleRate / samplePerSec);
+  const totalWidth = duration * SAMPLE_PER_SEC;
+  const samplingSize = Math.floor(sampleRate / SAMPLE_PER_SEC);
 
   const sampleArray = [];
   let sampleFilter = samplingSize;
