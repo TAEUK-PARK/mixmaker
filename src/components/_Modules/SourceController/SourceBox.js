@@ -109,7 +109,6 @@ const SourceBox = forwardRef(({ setAudioSection }, ref) => {
                 head: getCurrentMouseX(ev),
               };
             });
-            console.log("드래그 시작", wrapperRef.current.clientWidth);
           }
         }}
         onMouseMove={(ev) => {
@@ -130,7 +129,6 @@ const SourceBox = forwardRef(({ setAudioSection }, ref) => {
           clearInterval(scrollInterval);
           if (isDragging) {
             setIsDragging(false);
-            console.log("드래그 종료");
           }
         }}
         ref={canvasRef}

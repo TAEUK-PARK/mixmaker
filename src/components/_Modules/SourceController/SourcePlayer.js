@@ -6,21 +6,27 @@ import PropTypes from "prop-types";
 
 import Icon from "../../_Atoms/Icon";
 
-import { GiPauseButton } from "react-icons/gi";
+import { GiPauseButton, GiThermometerCold } from "react-icons/gi";
 import { FaPlay, FaStop } from "react-icons/fa";
+import { HiScissors } from "react-icons/hi";
 
 import { COLOR_BLACK } from "../../../constants/colors";
-
-import drawSoundWave from "../../../utils/audio/drawSoundWave";
-import drawSlider from "../../../utils/audio/drawSlider";
-import getLargestNumber from "../../../utils/getLargestNumber";
 import {
   SAMPLE_PER_SEC,
   WAVE_WIDTH_MULTIFLIER,
 } from "../../../constants/audioProperties";
+
+import drawSoundWave from "../../../utils/audio/drawSoundWave";
+import drawSlider from "../../../utils/audio/drawSlider";
+import getLargestNumber from "../../../utils/getLargestNumber";
+
 import getAudioEleFromSource from "../../../utils/audio/getAudioEleFromSource";
 import drawSection from "../../../utils/audio/drawSection";
 import getSmallestNumber from "../../../utils/getSmallestNumber";
+
+import trimAudioBuffer from "../../../utils/audio/trimAudioBuffer";
+import changeBlobToAudioBuffer from "../../../utils/audio/changeBlobToAudioBuffer";
+import changeAudioBufferToBlob from "../../../utils/audio/changeAudioBufferToBlob";
 
 const SourcePlayerWrapper = styled.div`
   display: inline-flex;
@@ -60,7 +66,9 @@ function SourcePlayer({
           return { anchor: 0, head: 0 };
         });
 
-        audioElement.currentTime = 0;
+        if (audioElement) {
+          audioElement.currentTime = 0;
+        }
       }
 
       if (isAudioChanged) {
@@ -146,7 +154,7 @@ function SourcePlayer({
       };
     });
 
-    audioElement.pause();
+    audioElement?.pause();
     clearTimeout(playingTimer);
     clearInterval(drawInterval);
   };
@@ -169,6 +177,15 @@ function SourcePlayer({
     if (audioSection.anchor === 0 && audioSection.head === 0) {
       drawSoundWave(canvasRef, visualizationData);
     }
+  };
+
+  const handleCutClick = async () => {
+    const audioBuffer = await changeBlobToAudioBuffer(source);
+    const trimmedAudioBuffer = trimAudioBuffer(audioBuffer, audioSection);
+
+    if (!trimmedAudioBuffer) return;
+
+    console.log(changeAudioBufferToBlob(trimmedAudioBuffer));
   };
 
   useEffect(() => {
@@ -219,7 +236,7 @@ function SourcePlayer({
             state: false,
           };
         });
-        audioElement.pause();
+        audioElement?.pause();
       }
     }
   }, [audioSection]);
@@ -233,8 +250,11 @@ function SourcePlayer({
       >
         {(isPlaying.state && <GiPauseButton />) || <FaPlay />}
       </Icon>
-      <Icon onClick={handleStopClick} color={COLOR_BLACK}>
+      <Icon color={COLOR_BLACK} width={"50px"} onClick={handleStopClick}>
         <FaStop />
+      </Icon>
+      <Icon color={COLOR_BLACK} width={"50px"} onClick={handleCutClick}>
+        <HiScissors />
       </Icon>
     </SourcePlayerWrapper>
   );
