@@ -54,6 +54,63 @@ function SourcePlayer({
       };
     });
 
+    if (audioSection.anchor === audioSection.head) {
+      if (audioSection.anchor !== 0) {
+        setAudioSection(() => {
+          return { anchor: 0, head: 0 };
+        });
+
+        audioElement.currentTime = 0;
+      }
+
+      if (isAudioChanged) {
+        const audio = getAudioEleFromSource(source);
+        setAudioElement(audio);
+
+        audio.onended = () => {
+          setIsPlaying((prev) => {
+            return {
+              ...prev,
+              state: false,
+            };
+          });
+        };
+        setIsAudioChanged(false);
+
+        drawSoundWave(canvasRef, visualizationData);
+
+        const interval = drawSlider(
+          canvasRef,
+          wrapperRef,
+          visualizationData,
+          setIsAudioChanged,
+          0,
+        );
+        setDrawInterval(interval);
+
+        audio.play();
+
+        return;
+      }
+
+      const { currentTime } = audioElement;
+
+      drawSoundWave(canvasRef, visualizationData);
+
+      const interval = drawSlider(
+        canvasRef,
+        wrapperRef,
+        visualizationData,
+        setIsAudioChanged,
+        currentTime + 0.125,
+      );
+
+      audioElement.play();
+      setDrawInterval(interval);
+
+      return;
+    }
+
     if (audioSection.anchor !== 0 || audioSection.head !== 0) {
       const { anchor, head } = audioSection;
       const from = getSmallestNumber(anchor, head);
@@ -79,51 +136,6 @@ function SourcePlayer({
 
       return;
     }
-
-    if (isAudioChanged) {
-      const audio = getAudioEleFromSource(source);
-      setAudioElement(audio);
-
-      audio.onended = () => {
-        setIsPlaying((prev) => {
-          return {
-            ...prev,
-            state: false,
-          };
-        });
-      };
-      setIsAudioChanged(false);
-
-      drawSoundWave(canvasRef, visualizationData);
-
-      const interval = drawSlider(
-        canvasRef,
-        wrapperRef,
-        visualizationData,
-        setIsAudioChanged,
-        0,
-      );
-      setDrawInterval(interval);
-
-      audio.play();
-
-      return;
-    }
-
-    const { currentTime } = audioElement;
-
-    drawSoundWave(canvasRef, visualizationData);
-
-    const interval = drawSlider(
-      canvasRef,
-      wrapperRef,
-      visualizationData,
-      setIsAudioChanged,
-      currentTime + 0.125,
-    );
-
-    audioElement.play();
-    setDrawInterval(interval);
   };
 
   const handlePauseClick = () => {
@@ -140,8 +152,6 @@ function SourcePlayer({
   };
 
   const handleStopClick = () => {
-    wrapperRef.current.scrollLeft = 0;
-
     if (!source || !audioElement) return;
 
     setIsPlaying((prev) => {
@@ -168,12 +178,17 @@ function SourcePlayer({
         state: false,
       };
     });
-    setIsAudioChanged(true);
 
     if (visualizationData) {
       clearInterval(drawInterval);
       drawSoundWave(canvasRef, visualizationData);
     }
+
+    setIsAudioChanged(true);
+
+    setAudioSection(() => {
+      return { anchor: 0, head: 0 };
+    });
 
     if (audioElement) {
       audioElement.pause();
@@ -193,11 +208,19 @@ function SourcePlayer({
   }, [isAudioChanged]);
 
   useEffect(() => {
-    //section 바뀔시 할 것
-    // 1. drawBar(yello?)
     if (visualizationData) {
-      drawSoundWave(canvasRef, visualizationData);
-      drawSection(canvasRef, audioSection, visualizationData);
+      if (audioSection.anchor !== 0 || audioSection.head !== 0) {
+        clearInterval(drawInterval);
+        drawSoundWave(canvasRef, visualizationData);
+        drawSection(canvasRef, audioSection, visualizationData);
+        setIsPlaying((prev) => {
+          return {
+            ...prev,
+            state: false,
+          };
+        });
+        audioElement.pause();
+      }
     }
   }, [audioSection]);
 
