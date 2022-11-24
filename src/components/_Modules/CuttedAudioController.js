@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import UpperBar from "./CuttedAudioController/UpperBar";
 import CuttedAudio from "./CuttedAudioController/CuttedAudio";
@@ -35,21 +38,22 @@ const CuttedAudioWrapper = styled.div`
   }
 `;
 
-function CuttedAudioController() {
+function CuttedAudioController({ trimmedAudios }) {
+  useEffect(() => {
+    console.log(trimmedAudios);
+  }, [trimmedAudios]);
   return (
     <CuttedAudioWrapper>
       <UpperBar />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
-      <CuttedAudio />
+      {trimmedAudios.map((audio, index) => {
+        return <CuttedAudio key={index} />;
+      })}
     </CuttedAudioWrapper>
   );
 }
+
+CuttedAudioController.propTypes = {
+  trimmedAudios: PropTypes.array.isRequired,
+};
 
 export default CuttedAudioController;

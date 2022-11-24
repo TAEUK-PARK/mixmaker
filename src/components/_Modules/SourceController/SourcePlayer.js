@@ -27,6 +27,7 @@ import getSmallestNumber from "../../../utils/getSmallestNumber";
 import trimAudioBuffer from "../../../utils/audio/trimAudioBuffer";
 import changeBlobToAudioBuffer from "../../../utils/audio/changeBlobToAudioBuffer";
 import changeAudioBufferToBlob from "../../../utils/audio/changeAudioBufferToBlob";
+import changeOffsetXToSec from "../../../utils/audio/changeOffsetXToSec";
 
 const SourcePlayerWrapper = styled.div`
   display: inline-flex;
@@ -38,6 +39,7 @@ function SourcePlayer({
   wrapperRef,
   visualizationData,
   source,
+  addTrimmedAudio,
   audioSection,
   setAudioSection,
 }) {
@@ -185,7 +187,17 @@ function SourcePlayer({
 
     if (!trimmedAudioBuffer) return;
 
-    console.log(changeAudioBufferToBlob(trimmedAudioBuffer));
+    const trimmedAudioBlob = changeAudioBufferToBlob(trimmedAudioBuffer);
+
+    const { anchor, head } = audioSection;
+    const { sampleRate } = audioBuffer;
+
+    const trimmedAudioData = {
+      blob: trimmedAudioBlob,
+      start: changeOffsetXToSec(Math.min(anchor, head), sampleRate),
+      end: changeOffsetXToSec(Math.max(anchor, head), sampleRate),
+    };
+    addTrimmedAudio(trimmedAudioData);
   };
 
   useEffect(() => {
@@ -263,6 +275,7 @@ function SourcePlayer({
 SourcePlayer.propTypes = {
   visualizationData: PropTypes.object,
   source: PropTypes.object,
+  addTrimmedAudio: PropTypes.func.isRequired,
   audioSection: PropTypes.object.isRequired,
   setAudioSection: PropTypes.func.isRequired,
   canvasRef: PropTypes.shape({

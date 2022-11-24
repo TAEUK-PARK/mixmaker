@@ -39,6 +39,8 @@ function SourceRecordButton({
     mediaRecorder.start();
     setMedia(mediaRecorder);
 
+    console.log(mediaRecorder);
+
     const source = audioCtx.createMediaStreamSource(microphone);
     setSource(source);
 
@@ -47,10 +49,6 @@ function SourceRecordButton({
     setRecorder(recorder);
 
     source.connect(recorder).connect(audioCtx.destination);
-
-    // recorder.port.onmessage = ({ data }) => {
-    //   console.log(data);
-    // };
   };
 
   const handleStopClick = () => {

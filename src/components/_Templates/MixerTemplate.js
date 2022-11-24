@@ -11,6 +11,7 @@ const MixerWrapper = styled.div``;
 function MixerTemplate() {
   const [sources, setSources] = useState([]);
   const [currentSourceNumber, setCurrentSourceNumber] = useState(0);
+  const [trimmedAudios, setTrimmedAudios] = useState([]);
 
   const addSource = (source) => {
     setSources((prev) => {
@@ -21,16 +22,26 @@ function MixerTemplate() {
     });
   };
 
+  const addTrimmedAudio = (trimmedAudio) => {
+    setTrimmedAudios((prev) => {
+      const result = prev.slice();
+      result.push(trimmedAudio);
+
+      return result;
+    });
+  };
+
   return (
     <MixerWrapper>
       <SourceController
         sources={sources}
         addSource={addSource}
+        addTrimmedAudio={addTrimmedAudio}
         numberOfSources={sources.length}
         currentSourceNumber={currentSourceNumber}
         handleCurrentSourceNumber={setCurrentSourceNumber}
       />
-      <CuttedAudioController />
+      <CuttedAudioController trimmedAudios={trimmedAudios} />
       <MixedAuidoController />
     </MixerWrapper>
   );

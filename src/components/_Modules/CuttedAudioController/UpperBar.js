@@ -38,11 +38,9 @@ function UpperBar() {
       <Text size={"20px"} width={"100px"}>
         end
       </Text>
-      <Text size={"20px"} width={"50px"}></Text>
-      <Text size={"20px"} width={"300px"}></Text>
-      <Text size={"20px"} width={"50px"}>
-        d
-      </Text>
+      <Text size={"20px"} width={"50px"} />
+      <Text size={"20px"} width={"300px"} />
+      <Text size={"20px"} width={"50px"} />
     </BarWrapper>
   );
 }

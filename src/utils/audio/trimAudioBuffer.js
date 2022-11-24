@@ -1,6 +1,4 @@
-import getLargestNumber from "../getLargestNumber";
-import getSmallestNumber from "../getSmallestNumber";
-import changeOffsetXToSec from "./changeOffsetXToOffset";
+import changeOffsetXToOffset from "./changeOffsetXToOffset";
 
 const trimAudioBuffer = (audioBuffer, audioSection) => {
   const { anchor, head } = audioSection;
@@ -10,8 +8,8 @@ const trimAudioBuffer = (audioBuffer, audioSection) => {
   }
 
   const { numberOfChannels, sampleRate } = audioBuffer;
-  const from = changeOffsetXToSec(getSmallestNumber(anchor, head), sampleRate);
-  const to = changeOffsetXToSec(getLargestNumber(anchor, head), sampleRate);
+  const from = changeOffsetXToOffset(Math.min(anchor, head), sampleRate);
+  const to = changeOffsetXToOffset(Math.max(anchor, head), sampleRate);
   const numberOfSamples = to - from;
 
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();

@@ -31,6 +31,7 @@ const SourcePlayerWrapper = styled.div`
 function SourceController({
   sources,
   addSource,
+  addTrimmedAudio,
   numberOfSources,
   currentSourceNumber,
   handleCurrentSourceNumber,
@@ -78,6 +79,7 @@ function SourceController({
             visualizationData[getIndexFromLength(currentSourceNumber)]
           }
           source={sources[getIndexFromLength(currentSourceNumber)]}
+          addTrimmedAudio={addTrimmedAudio}
           audioSection={audioSection}
           setAudioSection={setAudioSection}
           canvasRef={canvasRef}
@@ -91,6 +93,7 @@ function SourceController({
 SourceController.propTypes = {
   sources: PropTypes.array.isRequired,
   addSource: PropTypes.func.isRequired,
+  addTrimmedAudio: PropTypes.func.isRequired,
   numberOfSources: PropTypes.number.isRequired,
   currentSourceNumber: PropTypes.number,
   handleCurrentSourceNumber: PropTypes.func.isRequired,
