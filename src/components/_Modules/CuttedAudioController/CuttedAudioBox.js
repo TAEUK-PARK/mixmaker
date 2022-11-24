@@ -14,13 +14,9 @@ import drawSlider from "../../../utils/audio/drawSlider";
 import drawSliderCutted from "../../../utils/audio/drawSliderCutted";
 
 const CuttedAudioWrapper = styled.div`
-  width: 100%;
+  width: 300px;
   height: 120px;
   background-color: #e3f0ff;
-
-  border: 1px;
-  border-color: ${COLOR_BLACK};
-  border-style: solid;
 
   overflow-y: hidden;
   overflow-x: scroll;
@@ -103,6 +99,11 @@ function CuttedAudioBox({
 
   useEffect(() => {
     if (isStopped) {
+      if (audioElement) {
+        handleAudioEnded();
+        audioElement.pause();
+        audioElement.currentTime = 0;
+      }
       drawSoundWave(canvasRef, visualizationData);
       toggleIsStopped();
     }

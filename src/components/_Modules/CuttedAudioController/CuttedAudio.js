@@ -7,10 +7,10 @@ import Text from "../../_Atoms/Text";
 import Icon from "../../_Atoms/Icon";
 
 import { GiPauseButton } from "react-icons/gi";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaStop } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
-import { COLOR_BLUE, COLOR_GRAY } from "../../../constants/colors";
+import { COLOR_BLUE, COLOR_GRAY, COLOR_RED } from "../../../constants/colors";
 import CuttedAudioBox from "./CuttedAudioBox";
 
 const CuttedAudioWrapper = styled.div`
@@ -54,6 +54,10 @@ function CuttedAudio({ source }) {
     setIsStopped(!isStopped);
   };
 
+  const handleStopClick = () => {
+    setIsStopped(true);
+  };
+
   return (
     <CuttedAudioWrapper>
       <Text size={"20px"} width={"50px"}>
@@ -68,20 +72,15 @@ function CuttedAudio({ source }) {
         handleAudioEnded={handleAudioEnded}
       ></CuttedAudioBox>
 
-      <Text size={"20px"} width={"100px"}>
-        0.0000
-      </Text>
-
-      <Text size={"20px"} width={"100px"}>
-        1.1111
-      </Text>
-
       <Icon
         color={isPlaying.iconColor}
         width={"50px"}
         onClick={handlePlayButtonClick}
       >
         {(isPlaying.state && <GiPauseButton />) || <FaPlay />}
+      </Icon>
+      <Icon color={COLOR_RED} width={"50px"} onClick={handleStopClick}>
+        <FaStop />
       </Icon>
 
       <Text size={"20px"} width={"300px"}>
