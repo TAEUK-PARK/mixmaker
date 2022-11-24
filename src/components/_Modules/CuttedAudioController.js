@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -39,14 +37,11 @@ const CuttedAudioWrapper = styled.div`
 `;
 
 function CuttedAudioController({ trimmedAudios }) {
-  useEffect(() => {
-    console.log(trimmedAudios);
-  }, [trimmedAudios]);
   return (
     <CuttedAudioWrapper>
       <UpperBar />
       {trimmedAudios.map((audio, index) => {
-        return <CuttedAudio key={index} />;
+        return <CuttedAudio key={index} source={audio} />;
       })}
     </CuttedAudioWrapper>
   );

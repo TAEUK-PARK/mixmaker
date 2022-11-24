@@ -18,11 +18,8 @@ import {
 
 import drawSoundWave from "../../../utils/audio/drawSoundWave";
 import drawSlider from "../../../utils/audio/drawSlider";
-import getLargestNumber from "../../../utils/getLargestNumber";
-
 import getAudioEleFromSource from "../../../utils/audio/getAudioEleFromSource";
 import drawSection from "../../../utils/audio/drawSection";
-import getSmallestNumber from "../../../utils/getSmallestNumber";
 
 import trimAudioBuffer from "../../../utils/audio/trimAudioBuffer";
 import changeBlobToAudioBuffer from "../../../utils/audio/changeBlobToAudioBuffer";
@@ -123,8 +120,8 @@ function SourcePlayer({
 
     if (audioSection.anchor !== 0 || audioSection.head !== 0) {
       const { anchor, head } = audioSection;
-      const from = getSmallestNumber(anchor, head);
-      const to = getLargestNumber(anchor, head);
+      const from = Math.min(anchor, head);
+      const to = Math.max(anchor, head);
 
       const audio = audioElement ? audioElement : getAudioEleFromSource(source);
       setAudioElement(audio);

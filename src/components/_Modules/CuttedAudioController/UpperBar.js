@@ -9,7 +9,7 @@ const BarWrapper = styled.div`
   min-width: 820px;
   height: 50px;
   display: inline-flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   border: 1px;
@@ -18,7 +18,6 @@ const BarWrapper = styled.div`
   background-color: white;
 
   * {
-    background-color: aqua;
     text-align: center;
   }
 `;
@@ -26,21 +25,7 @@ const BarWrapper = styled.div`
 function UpperBar() {
   return (
     <BarWrapper>
-      <Text size={"20px"} width={"50px"}>
-        #
-      </Text>
-      <Text size={"20px"} width={"150px"}>
-        source file
-      </Text>
-      <Text size={"20px"} width={"100px"}>
-        start
-      </Text>
-      <Text size={"20px"} width={"100px"}>
-        end
-      </Text>
-      <Text size={"20px"} width={"50px"} />
-      <Text size={"20px"} width={"300px"} />
-      <Text size={"20px"} width={"50px"} />
+      <Text size={"20px"}>잘라낸 오디오를 확인하고 믹스해보세요!</Text>
     </BarWrapper>
   );
 }

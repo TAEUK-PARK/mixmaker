@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import Text from "../../_Atoms/Text";
 import Icon from "../../_Atoms/Icon";
@@ -10,26 +11,23 @@ import { FaPlay } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
 import { COLOR_BLUE, COLOR_GRAY } from "../../../constants/colors";
+import CuttedAudioBox from "./CuttedAudioBox";
 
 const CuttedAudioWrapper = styled.div`
   width: 90%;
   min-width: 820px;
-  height: 50px;
+  height: 150px;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-
-  * {
-    background-color: aqua;
-    text-align: center;
-  }
 `;
 
-function CuttedAudio() {
+function CuttedAudio({ source }) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
     iconColor: COLOR_BLUE,
   });
+  const [isStopped, setIsStopped] = useState(false);
 
   const handlePlayButtonClick = () => {
     setIsPlaying((prev) => {
@@ -41,15 +39,34 @@ function CuttedAudio() {
     });
   };
 
+  const handleAudioEnded = () => {
+    setIsPlaying((prev) => {
+      return {
+        ...prev,
+        state: false,
+        iconColor: COLOR_BLUE,
+      };
+    });
+    setIsStopped(true);
+  };
+
+  const toggleIsStopped = () => {
+    setIsStopped(!isStopped);
+  };
+
   return (
     <CuttedAudioWrapper>
       <Text size={"20px"} width={"50px"}>
         #
       </Text>
 
-      <Text size={"20px"} width={"150px"}>
-        source file 1
-      </Text>
+      <CuttedAudioBox
+        source={source}
+        isPlaying={isPlaying.state}
+        isStopped={isStopped}
+        toggleIsStopped={toggleIsStopped}
+        handleAudioEnded={handleAudioEnded}
+      ></CuttedAudioBox>
 
       <Text size={"20px"} width={"100px"}>
         0.0000
@@ -77,5 +94,9 @@ function CuttedAudio() {
     </CuttedAudioWrapper>
   );
 }
+
+CuttedAudio.propTypes = {
+  source: PropTypes.object.isRequired,
+};
 
 export default CuttedAudio;

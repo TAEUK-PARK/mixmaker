@@ -1,13 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { forwardRef, useEffect, useState, useRef, useCallback } from "react";
+import { forwardRef, useState, useCallback } from "react";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { COLOR_BLACK } from "../../../constants/colors";
-
-import drawSoundWave from "../../../utils/audio/drawSoundWave";
-import drawSlider from "../../../utils/audio/drawSlider";
 
 import throttle from "../../../utils/throttle";
 import getCurrentMouseX from "../../../utils/audio/getCurrentMouseX";
@@ -128,6 +125,9 @@ const SourceBox = forwardRef(({ setAudioSection }, ref) => {
         onMouseUp={(ev) => {
           clearInterval(scrollInterval);
           if (isDragging) {
+            setAudioSection((prev) => {
+              return { ...prev, head: getCurrentMouseX(ev) };
+            });
             setIsDragging(false);
           }
         }}

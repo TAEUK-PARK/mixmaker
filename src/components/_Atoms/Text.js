@@ -10,6 +10,7 @@ const TextWrapper = styled.span`
   width: ${(props) => props.width || "auto"};
   min-width: ${(props) => props.width || "auto"};
   white-space: nowrap;
+  text-align: center;
 
   text-overflow: ellipsis;
 `;
