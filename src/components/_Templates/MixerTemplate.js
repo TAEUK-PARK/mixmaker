@@ -31,6 +31,17 @@ function MixerTemplate() {
     });
   };
 
+  const deleteTrimmedAudio = (index) => {
+    return () => {
+      setTrimmedAudios((prev) => {
+        const result = prev.slice();
+        result.splice(index, 1);
+
+        return result;
+      });
+    };
+  };
+
   return (
     <MixerWrapper>
       <SourceController
@@ -41,7 +52,10 @@ function MixerTemplate() {
         currentSourceNumber={currentSourceNumber}
         handleCurrentSourceNumber={setCurrentSourceNumber}
       />
-      <CuttedAudioController trimmedAudios={trimmedAudios} />
+      <CuttedAudioController
+        trimmedAudios={trimmedAudios}
+        deleteTrimmedAudio={deleteTrimmedAudio}
+      />
       <MixedAuidoController />
     </MixerWrapper>
   );

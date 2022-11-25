@@ -22,7 +22,7 @@ const CuttedAudioWrapper = styled.div`
   align-items: center;
 `;
 
-function CuttedAudio({ source }) {
+function CuttedAudio({ source, deleteTrimmedAudio }) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
     iconColor: COLOR_BLUE,
@@ -87,7 +87,7 @@ function CuttedAudio({ source }) {
         features
       </Text>
 
-      <Icon width={"50px"}>
+      <Icon width={"50px"} onClick={deleteTrimmedAudio}>
         <ImCross />
       </Icon>
     </CuttedAudioWrapper>
@@ -96,6 +96,7 @@ function CuttedAudio({ source }) {
 
 CuttedAudio.propTypes = {
   source: PropTypes.object.isRequired,
+  deleteTrimmedAudio: PropTypes.func.isRequired,
 };
 
 export default CuttedAudio;

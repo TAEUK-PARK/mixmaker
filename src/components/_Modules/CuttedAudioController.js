@@ -36,12 +36,18 @@ const CuttedAudioWrapper = styled.div`
   }
 `;
 
-function CuttedAudioController({ trimmedAudios }) {
+function CuttedAudioController({ trimmedAudios, deleteTrimmedAudio }) {
   return (
     <CuttedAudioWrapper>
       <UpperBar />
       {trimmedAudios.map((audio, index) => {
-        return <CuttedAudio key={index} source={audio} />;
+        return (
+          <CuttedAudio
+            key={index}
+            source={audio}
+            deleteTrimmedAudio={deleteTrimmedAudio(index)}
+          />
+        );
       })}
     </CuttedAudioWrapper>
   );
@@ -49,6 +55,7 @@ function CuttedAudioController({ trimmedAudios }) {
 
 CuttedAudioController.propTypes = {
   trimmedAudios: PropTypes.array.isRequired,
+  deleteTrimmedAudio: PropTypes.func.isRequired,
 };
 
 export default CuttedAudioController;
