@@ -1,16 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { COLOR_BLACK } from "../../../constants/colors";
 import getSample from "../../../utils/audio/getSample";
 import getRawData from "../../../utils/audio/getRawData";
 import drawSoundWave from "../../../utils/audio/drawSoundWave";
-import getAudioEleFromSource from "../../../utils/audio/getAudioEleFromSource";
+
 import handlePlaying from "../../../utils/audio/handlePlaying";
-import drawSlider from "../../../utils/audio/drawSlider";
 import drawSliderCutted from "../../../utils/audio/drawSliderCutted";
 
 const CuttedAudioWrapper = styled.div`
@@ -39,6 +36,8 @@ function CuttedAudioBox({
   isStopped,
   toggleIsStopped,
   handleAudioEnded,
+  setCurrentDraggedSource,
+  setIsBoxPicked,
 }) {
   const canvasRef = useRef();
   const wrapperRef = useRef();
@@ -50,6 +49,11 @@ function CuttedAudioBox({
     const sampleData = getSample(await getRawData(source));
 
     setVisualizationData(sampleData);
+  };
+
+  const handleDragStart = () => {
+    setIsBoxPicked(true);
+    setCurrentDraggedSource(source.blob);
   };
 
   useEffect(() => {
@@ -110,7 +114,14 @@ function CuttedAudioBox({
   }, [isStopped]);
 
   return (
-    <CuttedAudioWrapper ref={wrapperRef}>
+    <CuttedAudioWrapper
+      ref={wrapperRef}
+      onDragStart={handleDragStart}
+      onDragEnd={() => {
+        console.log("end");
+      }}
+      draggable
+    >
       <canvas ref={canvasRef}></canvas>
     </CuttedAudioWrapper>
   );
@@ -122,6 +133,8 @@ CuttedAudioBox.propTypes = {
   isStopped: PropTypes.bool.isRequired,
   toggleIsStopped: PropTypes.func.isRequired,
   handleAudioEnded: PropTypes.func.isRequired,
+  setCurrentDraggedSource: PropTypes.func.isRequired,
+  setIsBoxPicked: PropTypes.func.isRequired,
 };
 
 export default CuttedAudioBox;

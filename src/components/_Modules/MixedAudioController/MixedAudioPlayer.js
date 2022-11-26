@@ -11,6 +11,7 @@ import { COLOR_BLACK } from "../../../constants/colors";
 
 const MixedAudioPlayerWrapper = styled.div`
   display: inline-flex;
+  margin: 0 auto;
 `;
 
 function MixedAudioPlayer() {

@@ -20,9 +20,19 @@ const CuttedAudioWrapper = styled.div`
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+
+  border-style: solid;
+  border-width: 1px;
 `;
 
-function CuttedAudio({ source, deleteTrimmedAudio }) {
+function CuttedAudio({
+  number,
+  source,
+  deleteTrimmedAudio,
+  setCurrentDraggedSource,
+  setIsBoxPicked,
+}) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
     iconColor: COLOR_BLUE,
@@ -61,7 +71,7 @@ function CuttedAudio({ source, deleteTrimmedAudio }) {
   return (
     <CuttedAudioWrapper>
       <Text size={"20px"} width={"50px"}>
-        #
+        {number}
       </Text>
 
       <CuttedAudioBox
@@ -70,6 +80,8 @@ function CuttedAudio({ source, deleteTrimmedAudio }) {
         isStopped={isStopped}
         toggleIsStopped={toggleIsStopped}
         handleAudioEnded={handleAudioEnded}
+        setCurrentDraggedSource={setCurrentDraggedSource}
+        setIsBoxPicked={setIsBoxPicked}
       ></CuttedAudioBox>
 
       <Icon
@@ -95,8 +107,11 @@ function CuttedAudio({ source, deleteTrimmedAudio }) {
 }
 
 CuttedAudio.propTypes = {
+  number: PropTypes.number.isRequired,
   source: PropTypes.object.isRequired,
   deleteTrimmedAudio: PropTypes.func.isRequired,
+  setCurrentDraggedSource: PropTypes.func.isRequired,
+  setIsBoxPicked: PropTypes.func.isRequired,
 };
 
 export default CuttedAudio;

@@ -24,7 +24,7 @@ const changeAudioBufferToBlob = (audioBuffer) => {
 
   const wavBytes = getWavBytes(interleaved.buffer, {
     isFloat: true,
-    numberOfChannels,
+    numChannels: numberOfChannels,
     sampleRate,
   });
 

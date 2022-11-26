@@ -5,6 +5,7 @@ import UpperBar from "./CuttedAudioController/UpperBar";
 import CuttedAudio from "./CuttedAudioController/CuttedAudio";
 
 import { COLOR_BLACK } from "../../constants/colors";
+import addNumber from "../../utils/addNumber";
 
 const CuttedAudioWrapper = styled.div`
   display: flex;
@@ -36,7 +37,12 @@ const CuttedAudioWrapper = styled.div`
   }
 `;
 
-function CuttedAudioController({ trimmedAudios, deleteTrimmedAudio }) {
+function CuttedAudioController({
+  trimmedAudios,
+  deleteTrimmedAudio,
+  setCurrentDraggedSource,
+  setIsBoxPicked,
+}) {
   return (
     <CuttedAudioWrapper>
       <UpperBar />
@@ -44,8 +50,11 @@ function CuttedAudioController({ trimmedAudios, deleteTrimmedAudio }) {
         return (
           <CuttedAudio
             key={index}
+            number={addNumber(index, 1)}
             source={audio}
             deleteTrimmedAudio={deleteTrimmedAudio(index)}
+            setCurrentDraggedSource={setCurrentDraggedSource}
+            setIsBoxPicked={setIsBoxPicked}
           />
         );
       })}
@@ -56,6 +65,8 @@ function CuttedAudioController({ trimmedAudios, deleteTrimmedAudio }) {
 CuttedAudioController.propTypes = {
   trimmedAudios: PropTypes.array.isRequired,
   deleteTrimmedAudio: PropTypes.func.isRequired,
+  setCurrentDraggedSource: PropTypes.func.isRequired,
+  setIsBoxPicked: PropTypes.func.isRequired,
 };
 
 export default CuttedAudioController;

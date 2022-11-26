@@ -10,8 +10,10 @@ const MixerWrapper = styled.div``;
 
 function MixerTemplate() {
   const [sources, setSources] = useState([]);
+  const [currentDraggedSource, setCurrentDraggedSource] = useState();
   const [currentSourceNumber, setCurrentSourceNumber] = useState(0);
   const [trimmedAudios, setTrimmedAudios] = useState([]);
+  const [isBoxPicked, setIsBoxPicked] = useState(false);
 
   const addSource = (source) => {
     setSources((prev) => {
@@ -55,8 +57,14 @@ function MixerTemplate() {
       <CuttedAudioController
         trimmedAudios={trimmedAudios}
         deleteTrimmedAudio={deleteTrimmedAudio}
+        setCurrentDraggedSource={setCurrentDraggedSource}
+        setIsBoxPicked={setIsBoxPicked}
       />
-      <MixedAuidoController />
+      <MixedAuidoController
+        currentDraggedSource={currentDraggedSource}
+        isBoxPicked={isBoxPicked}
+        setIsBoxPicked={setIsBoxPicked}
+      />
     </MixerWrapper>
   );
 }

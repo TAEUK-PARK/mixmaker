@@ -86,12 +86,7 @@ const SourceBox = forwardRef(({ setAudioSection }, ref) => {
     setScrollInterval(interval);
   };
 
-  const handleCut = () => {
-    console.log("handlecut");
-  };
-
   const throttledHandleDrag = useCallback(throttle(handleDrag, 50), []);
-  const throttledHandleCut = useCallback(throttle(handleCut, 50), []);
 
   return (
     <SourceWrapper ref={wrapperRef}>
@@ -119,7 +114,6 @@ const SourceBox = forwardRef(({ setAudioSection }, ref) => {
               scrollInterval,
               setAudioSection,
             );
-            throttledHandleCut();
           }
         }}
         onMouseUp={(ev) => {
