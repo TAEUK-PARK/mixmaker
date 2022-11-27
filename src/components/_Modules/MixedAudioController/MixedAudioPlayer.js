@@ -26,6 +26,8 @@ function MixedAudioPlayer({ mixedAudioSources }) {
   const [mixedAudioBlob, setMixedAudioBlob] = useState();
 
   const handlePlayButtonClick = () => {
+    if (!audioElement) return;
+
     setIsPlaying((prev) => {
       return {
         ...prev,
@@ -43,6 +45,12 @@ function MixedAudioPlayer({ mixedAudioSources }) {
           };
         });
       };
+      return;
+    }
+
+    if (isPlaying) {
+      audioElement.pause();
+      return;
     }
   };
 

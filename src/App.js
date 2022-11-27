@@ -1,5 +1,11 @@
+import MixerTemplate from "./components/_Templates/MixerTemplate";
+
 function App() {
-  return <div>this is app</div>;
+  return (
+    <div>
+      <MixerTemplate />
+    </div>
+  );
 }
 
 export default App;
