@@ -33,6 +33,7 @@ const MixedAuidoControllerWrapper = styled.div`
 const MixedPlayerWrapper = styled.div`
   display: flex;
   margin-top: 10px;
+  padding-right: 5%;
 `;
 
 const CrossWrapper = styled.div`

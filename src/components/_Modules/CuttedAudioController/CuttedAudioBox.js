@@ -9,11 +9,12 @@ import drawSoundWave from "../../../utils/audio/drawSoundWave";
 
 import handlePlaying from "../../../utils/audio/handlePlaying";
 import drawSliderCutted from "../../../utils/audio/drawSliderCutted";
+import { COLOR_WHITE } from "../../../constants/colors";
 
 const CuttedAudioWrapper = styled.div`
   width: 300px;
   height: 120px;
-  background-color: #e3f0ff;
+  background-color: ${COLOR_WHITE};
 
   overflow-y: hidden;
   overflow-x: scroll;

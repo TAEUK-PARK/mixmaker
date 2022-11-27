@@ -123,7 +123,11 @@ function SourcePlayer({
       const from = Math.min(anchor, head);
       const to = Math.max(anchor, head);
 
-      const audio = audioElement ? audioElement : getAudioEleFromSource(source);
+      const audio = isAudioChanged
+        ? getAudioEleFromSource(source)
+        : audioElement
+        ? audioElement
+        : getAudioEleFromSource(source);
       setAudioElement(audio);
 
       audio.currentTime = from / (SAMPLE_PER_SEC * WAVE_WIDTH_MULTIFLIER);

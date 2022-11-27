@@ -10,13 +10,19 @@ import { GiPauseButton } from "react-icons/gi";
 import { FaPlay, FaStop } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
-import { COLOR_BLUE, COLOR_GRAY, COLOR_RED } from "../../../constants/colors";
+import {
+  COLOR_BLUE,
+  COLOR_GRAY,
+  COLOR_RED,
+  COLOR_WHITE,
+} from "../../../constants/colors";
 import CuttedAudioBox from "./CuttedAudioBox";
 
 const CuttedAudioWrapper = styled.div`
   width: 90%;
   min-width: 820px;
   height: 150px;
+  background-color: ${COLOR_WHITE};
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
