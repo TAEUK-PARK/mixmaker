@@ -1,6 +1,5 @@
 const addLeft = (source, setSource, setIsBoxPicked, index) => {
   const indexNumber = Number(index);
-  console.log("left", indexNumber);
   setSource((prev) => {
     const result = prev.slice();
     result.splice(indexNumber, 0, source);

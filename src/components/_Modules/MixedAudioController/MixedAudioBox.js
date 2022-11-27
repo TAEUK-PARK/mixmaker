@@ -46,14 +46,6 @@ function MixedAudioBox({ source, handleAddLast }) {
     setVisualizationData(sampleData);
   };
 
-  const handleDragStart = (ev) => {
-    // console.log("Start", ev.dataTransfer);
-  };
-
-  const handleDrag = () => {
-    // console.log("Drag");
-  };
-
   useEffect(() => {
     if (source) {
       getVisualizationData(source);
@@ -67,12 +59,7 @@ function MixedAudioBox({ source, handleAddLast }) {
   }, [visualizationData]);
 
   return (
-    <MixedAudioWrapper
-      ref={wrapperRef}
-      onDragStart={handleDragStart}
-      onDrag={handleDrag}
-      draggable
-    >
+    <MixedAudioWrapper ref={wrapperRef} draggable>
       <canvas ref={canvasRef}></canvas>
     </MixedAudioWrapper>
   );

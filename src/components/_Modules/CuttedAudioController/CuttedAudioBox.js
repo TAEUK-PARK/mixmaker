@@ -117,9 +117,6 @@ function CuttedAudioBox({
     <CuttedAudioWrapper
       ref={wrapperRef}
       onDragStart={handleDragStart}
-      onDragEnd={() => {
-        console.log("end");
-      }}
       draggable
     >
       <canvas ref={canvasRef}></canvas>

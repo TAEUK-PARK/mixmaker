@@ -15,7 +15,8 @@ const CuttedAudioWrapper = styled.div`
   background-color: #e3f0ff;
   margin: 10px;
   padding: 10px;
-  overflow-x: scroll;
+  max-height: 500px;
+  overflow: scroll;
 
   border: 1px;
   border-color: ${COLOR_BLACK};

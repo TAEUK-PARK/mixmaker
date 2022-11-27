@@ -44,7 +44,7 @@ function MixedAudio({ children, handleAddLast }) {
 
 MixedAudio.propTypes = {
   children: PropTypes.node,
-  handleAddLast: PropTypes.func.isRequired,
+  handleAddLast: PropTypes.func,
 };
 
 export default MixedAudio;

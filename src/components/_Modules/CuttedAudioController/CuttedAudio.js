@@ -95,9 +95,7 @@ function CuttedAudio({
         <FaStop />
       </Icon>
 
-      <Text size={"20px"} width={"300px"}>
-        features
-      </Text>
+      <Text size={"20px"} width={"300px"}></Text>
 
       <Icon width={"50px"} onClick={deleteTrimmedAudio}>
         <ImCross />

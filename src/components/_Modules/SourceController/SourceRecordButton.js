@@ -39,8 +39,6 @@ function SourceRecordButton({
     mediaRecorder.start();
     setMedia(mediaRecorder);
 
-    console.log(mediaRecorder);
-
     const source = audioCtx.createMediaStreamSource(microphone);
     setSource(source);
 

@@ -61,8 +61,6 @@ const getMergedAudio = async (audioBlobsArray) => {
     sampleRate,
   });
 
-  console.log(wavBytes);
-
   const wav = new Blob([wavBytes], { type: "audio/wav" });
 
   return wav;
