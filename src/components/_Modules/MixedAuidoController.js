@@ -139,7 +139,7 @@ function MixedAuidoController({
         </MixedAudio>
       )}
       <MixedPlayerWrapper>
-        <MixedAudioPlayer />
+        <MixedAudioPlayer mixedAudioSources={mixedAudioSources} />
       </MixedPlayerWrapper>
     </MixedAuidoControllerWrapper>
   );
