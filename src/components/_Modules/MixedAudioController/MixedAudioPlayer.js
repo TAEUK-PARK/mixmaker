@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Icon from "../../_Atoms/Icon";
 
 import { GiPauseButton } from "react-icons/gi";
-import { FaPlay, FaStop } from "react-icons/fa";
+import { FaPlay, FaStop, FaDownload } from "react-icons/fa";
 
 import { COLOR_BLACK, COLOR_BLUE } from "../../../constants/colors";
 import getAudioEleFromSource from "../../../utils/audio/getAudioEleFromSource";
@@ -105,7 +105,7 @@ function MixedAudioPlayer({ mixedAudioSources }) {
         width={"50px"}
         onClick={handleDownloadButtonClick}
       >
-        <FaStop />
+        <FaDownload />
       </Icon>
     </MixedAudioPlayerWrapper>
   );
