@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 
 import styled from "styled-components";
@@ -6,6 +5,13 @@ import PropTypes from "prop-types";
 import getSample from "../../../utils/audio/getSample";
 import getRawData from "../../../utils/audio/getRawData";
 import drawSoundWave from "../../../utils/audio/drawSoundWave";
+import Icon from "../../_Atoms/Icon";
+import { ImCross } from "react-icons/im";
+import { COLOR_BLUE } from "../../../constants/colors";
+
+const MixedAudioBoxWrapper = styled.div`
+  position: relative;
+`;
 
 const MixedAudioWrapper = styled.div`
   display: flex;
@@ -35,9 +41,16 @@ const MixedAudioWrapper = styled.div`
   }
 `;
 
-function MixedAudioBox({ source, handleAddLast }) {
+const CrossWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+  left: calc(100% - 25px);
+  bottom: 80%;
+  z-index: 1000;
+`;
+
+function MixedAudioBox({ index, source, handleDragOver, handleCrossClick }) {
   const canvasRef = useRef();
-  const wrapperRef = useRef();
   const [visualizationData, setVisualizationData] = useState();
 
   const getVisualizationData = async (source) => {
@@ -59,14 +72,28 @@ function MixedAudioBox({ source, handleAddLast }) {
   }, [visualizationData]);
 
   return (
-    <MixedAudioWrapper ref={wrapperRef} draggable>
-      <canvas ref={canvasRef}></canvas>
-    </MixedAudioWrapper>
+    <MixedAudioBoxWrapper id={index} onDragOver={handleDragOver} draggable>
+      <MixedAudioWrapper>
+        <canvas ref={canvasRef}></canvas>
+      </MixedAudioWrapper>
+      <CrossWrapper>
+        <Icon
+          size={"15px"}
+          color={COLOR_BLUE}
+          onClick={handleCrossClick(index)}
+        >
+          <ImCross />
+        </Icon>
+      </CrossWrapper>
+    </MixedAudioBoxWrapper>
   );
 }
 
 MixedAudioBox.propTypes = {
+  index: PropTypes.number,
   source: PropTypes.object,
+  handleDragOver: PropTypes.func,
+  handleCrossClick: PropTypes.func,
 };
 
 export default MixedAudioBox;

@@ -3,15 +3,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import Icon from "../_Atoms/Icon";
 import MixedAudio from "./MixedAudioController/MixedAudio";
 import MixedAudioPlayer from "./MixedAudioController/MixedAudioPlayer";
 import MixedAudioBox from "./MixedAudioController/MixedAudioBox";
 import MixedAudioInit from "./MixedAudioController/MixedAudioInit";
 
-import { ImCross } from "react-icons/im";
-
-import { COLOR_BLACK, COLOR_BLUE } from "../../constants/colors";
+import { COLOR_BLACK } from "../../constants/colors";
 import addNext from "../../utils/draggingSource/addNext";
 import getDragOverLocation from "../../utils/draggingSource/getDragOverLocation";
 import addLeft from "../../utils/draggingSource/addLeft";
@@ -36,14 +33,6 @@ const MixedPlayerWrapper = styled.div`
   padding-right: 5%;
 `;
 
-const CrossWrapper = styled.div`
-  position: relative;
-  width: fit-content;
-  left: calc(100% - 25px);
-  bottom: 80%;
-  z-index: 1000;
-`;
-
 function MixedAuidoController({
   currentDraggedSource,
   isBoxPicked,
@@ -60,11 +49,14 @@ function MixedAuidoController({
 
   const handleDragOver = (ev) => {
     const currentLocation = getDragOverLocation(ev);
-    const index =
-      ev.target.parentElement.parentElement.id || ev.target.parentElement.id;
+    const index = Number(
+      ev.target.parentElement.parentElement.id || ev.target.parentElement.id,
+    );
 
     if (lastLocation !== currentLocation) {
       setLastLocation(currentLocation);
+
+      return;
     }
 
     if (isBoxPicked) {
@@ -115,26 +107,13 @@ function MixedAuidoController({
         <MixedAudio>
           {mixedAudioSources.map((source, index) => {
             return (
-              <div
-                key={`audioBox${index}`}
-                id={index}
-                onDragOver={handleDragOver}
-              >
-                <MixedAudioBox
-                  index={index}
-                  source={source}
-                  handleAddLast={handleDragOver}
-                />
-                <CrossWrapper>
-                  <Icon
-                    size={"15px"}
-                    color={COLOR_BLUE}
-                    onClick={handleCrossClick(index)}
-                  >
-                    <ImCross />
-                  </Icon>
-                </CrossWrapper>
-              </div>
+              <MixedAudioBox
+                key={index}
+                index={index}
+                source={source}
+                handleDragOver={handleDragOver}
+                handleCrossClick={handleCrossClick}
+              />
             );
           })}
         </MixedAudio>
