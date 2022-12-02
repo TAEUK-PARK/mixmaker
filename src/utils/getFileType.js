@@ -1,4 +1,6 @@
 const getFileType = (type) => {
+  if (!type.includes("/")) return null;
+
   let sliceIndex = 0;
 
   while (type[sliceIndex] !== "/") {

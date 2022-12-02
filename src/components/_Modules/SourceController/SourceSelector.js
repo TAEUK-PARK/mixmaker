@@ -39,13 +39,13 @@ function SourceSelector({
   return (
     <SelectorWrapper>
       <Icon onClick={handleLeftClick}>
-        <FaArrowAltCircleLeft />
+        <FaArrowAltCircleLeft data-testid={"moveSelectionLeft"} />
       </Icon>
       <Text size={"18px"} selectable={"none"}>
         {currentSourceNumber}/{numberOfSources}
       </Text>
       <Icon onClick={handleRightClick}>
-        <FaArrowAltCircleRight />
+        <FaArrowAltCircleRight data-testid={"moveSelectionRight"} />
       </Icon>
     </SelectorWrapper>
   );

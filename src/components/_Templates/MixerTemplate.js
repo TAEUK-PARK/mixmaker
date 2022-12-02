@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import SourceController from "../_Modules/SourceController";
 import CuttedAudioController from "../_Modules/CuttedAudioController";
-import MixedAuidoController from "../_Modules/MixedAuidoController";
+import MixedAudioController from "../_Modules/MixedAudioController";
 
 const MixerWrapper = styled.div``;
 
@@ -60,7 +60,7 @@ function MixerTemplate() {
         setCurrentDraggedSource={setCurrentDraggedSource}
         setIsBoxPicked={setIsBoxPicked}
       />
-      <MixedAuidoController
+      <MixedAudioController
         currentDraggedSource={currentDraggedSource}
         isBoxPicked={isBoxPicked}
         setIsBoxPicked={setIsBoxPicked}

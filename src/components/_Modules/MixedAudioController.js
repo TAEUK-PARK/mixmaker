@@ -14,7 +14,7 @@ import getDragOverLocation from "../../utils/draggingSource/getDragOverLocation"
 import addLeft from "../../utils/draggingSource/addLeft";
 import addRight from "../../utils/draggingSource/addRight";
 
-const MixedAuidoControllerWrapper = styled.div`
+const MixedAudioControllerWrapper = styled.div`
   padding: 10px;
   margin: 10px;
   background-color: #e3f0ff;
@@ -33,7 +33,7 @@ const MixedPlayerWrapper = styled.div`
   padding-right: 5%;
 `;
 
-function MixedAuidoController({
+function MixedAudioController({
   currentDraggedSource,
   isBoxPicked,
   setIsBoxPicked,
@@ -101,7 +101,7 @@ function MixedAuidoController({
   };
 
   return (
-    <MixedAuidoControllerWrapper>
+    <MixedAudioControllerWrapper>
       {isInit && <MixedAudioInit handleInit={handleInit} />}
       {!isInit && (
         <MixedAudio>
@@ -121,14 +121,14 @@ function MixedAuidoController({
       <MixedPlayerWrapper>
         <MixedAudioPlayer mixedAudioSources={mixedAudioSources} />
       </MixedPlayerWrapper>
-    </MixedAuidoControllerWrapper>
+    </MixedAudioControllerWrapper>
   );
 }
 
-MixedAuidoController.propTypes = {
+MixedAudioController.propTypes = {
   currentDraggedSource: PropTypes.object,
   isBoxPicked: PropTypes.bool.isRequired,
   setIsBoxPicked: PropTypes.func.isRequired,
 };
 
-export default MixedAuidoController;
+export default MixedAudioController;

@@ -45,6 +45,7 @@ function SourceUploadButton({
         ref={fileInput}
         type={"file"}
         id="input-file"
+        data-testid="audio-uploader"
         onChange={handleChange}
         style={{ display: "none" }}
       ></input>

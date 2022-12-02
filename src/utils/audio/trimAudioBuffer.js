@@ -1,4 +1,5 @@
 import changeOffsetXToOffset from "./changeOffsetXToOffset";
+import { AudioContext } from "standardized-audio-context-mock";
 
 const trimAudioBuffer = (audioBuffer, audioSection) => {
   const { anchor, head } = audioSection;
@@ -12,7 +13,14 @@ const trimAudioBuffer = (audioBuffer, audioSection) => {
   const to = changeOffsetXToOffset(Math.max(anchor, head), sampleRate);
   const numberOfSamples = to - from;
 
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  let audioCtx;
+
+  if (typeof window !== "undefined") {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  } else {
+    audioCtx = new AudioContext();
+  }
+
   const newAudioBuffer = audioCtx.createBuffer(
     numberOfChannels,
     numberOfSamples,

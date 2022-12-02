@@ -7,13 +7,14 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-scripts": "5.0.1",
+    "standardized-audio-context-mock": "^9.6.7",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watch",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "pre-commit": "lint-staged"
@@ -37,6 +38,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "eslint": "^8.27.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
@@ -44,6 +49,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "husky": "^8.0.0",
+    "jest": "^27.5.1",
+    "jsdom": "^20.0.3",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1"
   },
