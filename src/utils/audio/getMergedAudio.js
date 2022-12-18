@@ -1,10 +1,7 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-unused-vars */
 import getIndexFromLength from "../getIndexFromLength";
 import changeBlobToAudioBuffer from "./changeBlobToAudioBuffer";
 
 const getMergedAudio = async (audioBlobsArray) => {
-  // 가장 높은 채널수를 뽑는다.
   const audioBuffersArray = [];
 
   for (let i = 0; i < audioBlobsArray.length; i++) {
