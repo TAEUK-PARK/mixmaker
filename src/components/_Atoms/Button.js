@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
-import { COLOR_BLUE, COLOR_WHITE } from "../../constants/colors";
+import {
+  COLOR_BLUE,
+  COLOR_GRAY_HIGHLIGHT,
+  COLOR_LIGHT_GRAY,
+  COLOR_WHITE,
+} from "../../constants/colors";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -9,12 +14,12 @@ const ButtonWrapper = styled.div`
   align-items: center;
   position: relative;
   justify-content: center;
-  margin-left: 5px;
-  margin-right: 5px;
   background: ${(props) => props.buttonColor || COLOR_BLUE};
-  width: ${(props) => props.width || "150px"};
-  height: ${(props) => props.height || "60px"};
-  border-radius: 50px;
+  border-radius: 6px;
+  border-color: ${(props) => props.borderColor || COLOR_LIGHT_GRAY};
+  border-style: solid;
+  border-width: 0.2px;
+  cursor: pointer;
 
   font-size: ${(props) => props.fontSize || "25px"};
   color: ${(props) => props.fontColor || COLOR_WHITE};
@@ -31,13 +36,18 @@ const ButtonWrapper = styled.div`
 
     if (props.small) {
       return css`
-        width: 120px;
-        height: 44.5px;
+        width: 90px;
+        height: 30px;
 
-        font-size: 20px;
+        font-size: 14px;
       `;
     }
   }}
+
+  &:hover {
+    background-color: ${COLOR_GRAY_HIGHLIGHT};
+    border-color: ${COLOR_WHITE};
+  }
 `;
 
 function Button({ value, ...props }) {
@@ -53,6 +63,7 @@ Button.propTypes = {
   fontColor: PropTypes.string,
   big: PropTypes.bool,
   small: PropTypes.bool,
+  borderColor: PropTypes.string,
 };
 
 export default Button;

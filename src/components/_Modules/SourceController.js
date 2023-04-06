@@ -15,12 +15,9 @@ import getSample from "../../utils/audio/getSample";
 import SourcePlayer from "./SourceController/SourcePlayer";
 
 const SourceControllerWrapper = styled.div`
+  height: 200px;
   padding: 20px;
-  margin: 10px;
-
-  border: 1px;
-  border-color: ${COLOR_BLACK};
-  border-style: solid;
+  background-color: ${COLOR_BLACK};
 `;
 
 const SourcePlayerWrapper = styled.div`

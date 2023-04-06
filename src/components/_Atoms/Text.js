@@ -5,6 +5,7 @@ import { COLOR_BLACK } from "../../constants/colors";
 
 const TextWrapper = styled.span`
   font-size: ${(props) => props.size || "38px"};
+  font-weight: ${(props) => props.weight || 200};
   color: ${(props) => props.color || COLOR_BLACK};
   user-select: ${(props) => props.selectable || "auto"};
   width: ${(props) => props.width || "auto"};
@@ -15,7 +16,7 @@ const TextWrapper = styled.span`
   text-overflow: ellipsis;
 `;
 
-function Text({ children, size, color, width, selectable, onClick }) {
+function Text({ children, size, color, width, selectable, onClick, weight }) {
   return (
     <TextWrapper
       size={size}
@@ -23,6 +24,7 @@ function Text({ children, size, color, width, selectable, onClick }) {
       width={width}
       selectable={selectable}
       onClick={onClick}
+      weight={weight}
     >
       {children}
     </TextWrapper>
@@ -36,6 +38,7 @@ Text.propTypes = {
   selectable: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,
+  weight: PropTypes.number,
 };
 
 export default Text;

@@ -15,22 +15,14 @@ import addLeft from "../../utils/draggingSource/addLeft";
 import addRight from "../../utils/draggingSource/addRight";
 
 const MixedAudioControllerWrapper = styled.div`
-  padding: 10px;
-  margin: 10px;
-  background-color: #e3f0ff;
-  border: 1px;
-  border-color: ${COLOR_BLACK};
-  border-style: solid;
-
-  > div {
-    margin-left: 5%;
-  }
+  height: 200px;
+  padding: 0 30px 30px;
+  background-color: ${COLOR_BLACK};
 `;
 
 const MixedPlayerWrapper = styled.div`
   display: flex;
   margin-top: 10px;
-  padding-right: 5%;
 `;
 
 function MixedAudioController({
@@ -104,23 +96,25 @@ function MixedAudioController({
     <MixedAudioControllerWrapper>
       {isInit && <MixedAudioInit handleInit={handleInit} />}
       {!isInit && (
-        <MixedAudio>
-          {mixedAudioSources.map((source, index) => {
-            return (
-              <MixedAudioBox
-                key={index}
-                index={index}
-                source={source}
-                handleDragOver={handleDragOver}
-                handleCrossClick={handleCrossClick}
-              />
-            );
-          })}
-        </MixedAudio>
+        <>
+          <MixedAudio>
+            {mixedAudioSources.map((source, index) => {
+              return (
+                <MixedAudioBox
+                  key={index}
+                  index={index}
+                  source={source}
+                  handleDragOver={handleDragOver}
+                  handleCrossClick={handleCrossClick}
+                />
+              );
+            })}
+          </MixedAudio>
+          <MixedPlayerWrapper>
+            <MixedAudioPlayer mixedAudioSources={mixedAudioSources} />
+          </MixedPlayerWrapper>
+        </>
       )}
-      <MixedPlayerWrapper>
-        <MixedAudioPlayer mixedAudioSources={mixedAudioSources} />
-      </MixedPlayerWrapper>
     </MixedAudioControllerWrapper>
   );
 }

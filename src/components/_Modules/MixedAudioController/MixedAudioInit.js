@@ -3,20 +3,24 @@ import PropTypes from "prop-types";
 
 import Text from "../../_Atoms/Text";
 
-import { COLOR_BLACK } from "../../../constants/colors";
+import {
+  COLOR_BLACK,
+  COLOR_LIGHT_GRAY,
+  COLOR_WHITE,
+} from "../../../constants/colors";
 
 const InitEleWrapper = styled.div`
-  width: 90%;
-  min-width: 820px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   display: inline-flex;
   justify-content: center;
   align-items: center;
 
   border: 1px;
-  border-color: ${COLOR_BLACK};
+  border-color: ${COLOR_LIGHT_GRAY};
   border-style: solid;
-  background-color: white;
+  border-radius: 15px;
+  background-color: ${COLOR_BLACK};
 
   * {
     text-align: center;
@@ -34,7 +38,9 @@ function MixedAudioInit({ handleInit }) {
         ev.preventDefault();
       }}
     >
-      <Text size={"20px"}>이곳에 오디오를 드래그 해보세요!</Text>
+      <Text size={"16px"} weight={200} color={COLOR_WHITE}>
+        이곳에 오디오를 드래그 해보세요!
+      </Text>
     </InitEleWrapper>
   );
 }

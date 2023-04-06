@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { COLOR_LIGHT_GRAY } from "../../../constants/colors";
 
 const ScrollDiv = styled.div`
-  width: 90%;
   height: 150px;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: ${COLOR_LIGHT_GRAY};
+  border-width: 0.5px;
+  padding: 10px 10px 0 10px;
 
   overflow-y: hidden;
   overflow-x: scroll;

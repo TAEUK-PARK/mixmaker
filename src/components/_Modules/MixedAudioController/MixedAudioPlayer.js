@@ -8,19 +8,22 @@ import Icon from "../../_Atoms/Icon";
 import { GiPauseButton } from "react-icons/gi";
 import { FaPlay, FaStop, FaDownload } from "react-icons/fa";
 
-import { COLOR_BLACK, COLOR_BLUE } from "../../../constants/colors";
+import { COLOR_GRAY, COLOR_RED, COLOR_WHITE } from "../../../constants/colors";
 import getAudioEleFromSource from "../../../utils/audio/getAudioEleFromSource";
 import getMergedAudio from "../../../utils/audio/getMergedAudio";
 
 const MixedAudioPlayerWrapper = styled.div`
   display: inline-flex;
   margin: 0 auto;
+  * {
+    margin: 0 5px;
+  }
 `;
 
 function MixedAudioPlayer({ mixedAudioSources }) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
-    iconColor: COLOR_BLACK,
+    iconColor: COLOR_WHITE,
   });
   const [audioElement, setAudioElement] = useState();
   const [mixedAudioBlob, setMixedAudioBlob] = useState();
@@ -98,19 +101,19 @@ function MixedAudioPlayer({ mixedAudioSources }) {
 
   return (
     <MixedAudioPlayerWrapper>
-      <Icon
-        color={isPlaying.iconColor}
-        width={"50px"}
-        onClick={handlePlayButtonClick}
-      >
+      <Icon color={isPlaying.iconColor} onClick={handlePlayButtonClick}>
         {(isPlaying.state && <GiPauseButton />) || <FaPlay />}
       </Icon>
-      <Icon color={COLOR_BLACK} width={"50px"} onClick={handleStopButtonClick}>
+      <Icon
+        color={COLOR_WHITE}
+        hoverColor={COLOR_RED}
+        onClick={handleStopButtonClick}
+      >
         <FaStop />
       </Icon>
       <Icon
-        color={COLOR_BLUE}
-        width={"50px"}
+        color={COLOR_WHITE}
+        hoverColor={COLOR_GRAY}
         onClick={handleDownloadButtonClick}
       >
         <FaDownload />

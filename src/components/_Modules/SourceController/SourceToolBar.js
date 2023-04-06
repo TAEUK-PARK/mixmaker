@@ -2,11 +2,10 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import SourceSelector from "./SourceSelector";
-import SourceRemover from "./SourceRemover";
 
 const SourceToolBarWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
 `;
 
 function SourceToolBar({
@@ -21,7 +20,6 @@ function SourceToolBar({
         currentSourceNumber={currentSourceNumber}
         handleCurrentSourceNumber={handleCurrentSourceNumber}
       />
-      <SourceRemover />
     </SourceToolBarWrapper>
   );
 }

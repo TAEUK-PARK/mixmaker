@@ -7,6 +7,7 @@ import Text from "../../_Atoms/Text";
 import addNumber from "../../../utils/addNumber";
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import { COLOR_WHITE } from "../../../constants/colors";
 
 const SelectorWrapper = styled.div`
   display: inline-flex;
@@ -41,7 +42,7 @@ function SourceSelector({
       <Icon onClick={handleLeftClick}>
         <FaArrowAltCircleLeft data-testid={"moveSelectionLeft"} />
       </Icon>
-      <Text size={"18px"} selectable={"none"}>
+      <Text size={"16px"} selectable={"none"} color={COLOR_WHITE}>
         {currentSourceNumber}/{numberOfSources}
       </Text>
       <Icon onClick={handleRightClick}>

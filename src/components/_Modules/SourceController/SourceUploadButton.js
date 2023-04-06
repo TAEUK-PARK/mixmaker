@@ -10,7 +10,11 @@ import getFileType from "../../../utils/getFileType";
 import { COLOR_GRAY } from "../../../constants/colors";
 import addNumber from "../../../utils/addNumber";
 
-const UploadButtonWrapper = styled.div``;
+const UploadButtonWrapper = styled.div`
+  * {
+    user-select: none;
+  }
+`;
 
 function SourceUploadButton({
   numberOfSources,

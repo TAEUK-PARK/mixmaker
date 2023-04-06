@@ -11,25 +11,40 @@ import { FaPlay, FaStop } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
 
 import {
-  COLOR_BLUE,
   COLOR_GRAY,
+  COLOR_GRAY_HIGHLIGHT,
   COLOR_RED,
   COLOR_WHITE,
 } from "../../../constants/colors";
 import CuttedAudioBox from "./CuttedAudioBox";
 
 const CuttedAudioWrapper = styled.div`
-  width: 90%;
-  min-width: 820px;
+  width: 80%;
   height: 150px;
-  background-color: ${COLOR_WHITE};
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  padding: 0 20px;
 
   border-style: solid;
-  border-width: 1px;
+  border-width: 0.5px;
+  border-radius: 15px;
+
+  &:hover {
+    border-color: ${COLOR_GRAY_HIGHLIGHT};
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  * {
+    margin: 0 5px;
+  }
+`;
+
+const TextWrapper = styled.div`
+  height: 70%;
 `;
 
 function CuttedAudio({
@@ -41,7 +56,7 @@ function CuttedAudio({
 }) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
-    iconColor: COLOR_BLUE,
+    iconColor: COLOR_WHITE,
   });
   const [isStopped, setIsStopped] = useState(false);
 
@@ -50,7 +65,7 @@ function CuttedAudio({
       return {
         ...prev,
         state: !prev.state,
-        iconColor: prev.state ? COLOR_BLUE : COLOR_GRAY,
+        iconColor: prev.state ? COLOR_WHITE : COLOR_GRAY_HIGHLIGHT,
       };
     });
   };
@@ -60,7 +75,7 @@ function CuttedAudio({
       return {
         ...prev,
         state: false,
-        iconColor: COLOR_BLUE,
+        iconColor: COLOR_WHITE,
       };
     });
     setIsStopped(true);
@@ -76,9 +91,11 @@ function CuttedAudio({
 
   return (
     <CuttedAudioWrapper>
-      <Text size={"20px"} width={"50px"}>
-        {number}
-      </Text>
+      <TextWrapper>
+        <Text size={"24px"} weight={700} color={COLOR_WHITE}>
+          {number + "."}
+        </Text>
+      </TextWrapper>
 
       <CuttedAudioBox
         source={source}
@@ -90,22 +107,21 @@ function CuttedAudio({
         setIsBoxPicked={setIsBoxPicked}
       ></CuttedAudioBox>
 
-      <Icon
-        color={isPlaying.iconColor}
-        width={"50px"}
-        onClick={handlePlayButtonClick}
-      >
-        {(isPlaying.state && <GiPauseButton />) || <FaPlay />}
-      </Icon>
-      <Icon color={COLOR_RED} width={"50px"} onClick={handleStopClick}>
-        <FaStop />
-      </Icon>
-
-      <Text size={"20px"} width={"300px"}></Text>
-
-      <Icon width={"50px"} onClick={deleteTrimmedAudio}>
-        <ImCross />
-      </Icon>
+      <ButtonWrapper>
+        <Icon color={isPlaying.iconColor} onClick={handlePlayButtonClick}>
+          {(isPlaying.state && <GiPauseButton />) || <FaPlay />}
+        </Icon>
+        <Icon
+          color={COLOR_WHITE}
+          hoverColor={COLOR_RED}
+          onClick={handleStopClick}
+        >
+          <FaStop />
+        </Icon>
+        <Icon hoverColor={COLOR_GRAY} onClick={deleteTrimmedAudio}>
+          <ImCross />
+        </Icon>
+      </ButtonWrapper>
     </CuttedAudioWrapper>
   );
 }

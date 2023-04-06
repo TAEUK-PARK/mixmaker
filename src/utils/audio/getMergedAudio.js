@@ -114,7 +114,7 @@ const getWavHeader = (options) => {
   writeString("WAVE"); // Format
   writeString("fmt "); // Subchunk1ID
   writeUint32(16); // Subchunk1Size
-  writeUint16(format); // AudioFormat https://i.stack.imgur.com/BuSmb.png
+  writeUint16(format); // AudioFormat
   writeUint16(numChannels); // NumChannels
   writeUint32(sampleRate); // SampleRate
   writeUint32(byteRate); // ByteRate

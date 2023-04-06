@@ -4,7 +4,7 @@ import { forwardRef, useState, useCallback } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { COLOR_BLACK } from "../../../constants/colors";
+import { COLOR_BLACK, COLOR_WHITE } from "../../../constants/colors";
 
 import throttle from "../../../utils/throttle";
 import getCurrentMouseX from "../../../utils/audio/getCurrentMouseX";
@@ -12,11 +12,7 @@ import getCurrentMouseX from "../../../utils/audio/getCurrentMouseX";
 const SourceWrapper = styled.div`
   width: 100%;
   height: 120px;
-  background-color: #e3f0ff;
-
-  border: 1px;
-  border-color: ${COLOR_BLACK};
-  border-style: solid;
+  background-color: ${COLOR_BLACK};
 
   overflow-y: hidden;
   overflow-x: scroll;
@@ -26,10 +22,14 @@ const SourceWrapper = styled.div`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #2f3542;
+    background-color: ${COLOR_WHITE};
     border-radius: 10px;
     background-clip: padding-box;
     border: 6px solid transparent;
+  }
+
+  canvas {
+    cursor: pointer;
   }
 `;
 

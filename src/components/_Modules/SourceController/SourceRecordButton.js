@@ -5,11 +5,17 @@ import PropTypes from "prop-types";
 
 import Button from "../../_Atoms/Button";
 
-import { COLOR_GRAY, COLOR_RED, COLOR_WHITE } from "../../../constants/colors";
+import {
+  COLOR_BLACK,
+  COLOR_GRAY,
+  COLOR_RED,
+  COLOR_WHITE,
+} from "../../../constants/colors";
 
 import addNumber from "../../../utils/addNumber";
 
 const RecordButtonWrapper = styled.div`
+  margin-right: 5px;
   * {
     user-select: none;
   }
@@ -72,7 +78,8 @@ function SourceRecordButton({
         value={isRecording ? "Stop" : "Record"}
         fontColor={isRecording ? COLOR_RED : COLOR_WHITE}
         onClick={isRecording ? handleStopClick : handleRecordClick}
-        buttonColor={COLOR_GRAY}
+        buttonColor={isRecording ? COLOR_BLACK : COLOR_GRAY}
+        borderColor={isRecording ? COLOR_RED : null}
         small
       />
     </RecordButtonWrapper>

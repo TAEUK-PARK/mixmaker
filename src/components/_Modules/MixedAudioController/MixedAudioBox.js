@@ -7,7 +7,7 @@ import getRawData from "../../../utils/audio/getRawData";
 import drawSoundWave from "../../../utils/audio/drawSoundWave";
 import Icon from "../../_Atoms/Icon";
 import { ImCross } from "react-icons/im";
-import { COLOR_BLUE } from "../../../constants/colors";
+import { COLOR_BLUE, COLOR_LIGHT_GRAY } from "../../../constants/colors";
 
 const MixedAudioBoxWrapper = styled.div`
   position: relative;
@@ -21,10 +21,12 @@ const MixedAudioWrapper = styled.div`
   max-width: 300px;
   height: 120px;
   margin-inline-end: 1px;
+  padding: 5px;
 
-  border-style: dashed;
-  border-radius: 5%;
+  border-style: solid;
+  border-radius: 6px;
   border-width: 1px;
+  border-color: ${COLOR_LIGHT_GRAY};
 
   overflow-y: hidden;
   overflow-x: scroll;

@@ -6,7 +6,6 @@ import SourceRecordButton from "./SourceRecordButton";
 
 const SourceAddButtonsWrapper = styled.div`
   display: inline-flex;
-  margin-bottom: 20px;
 `;
 
 function SourceAddButtons({

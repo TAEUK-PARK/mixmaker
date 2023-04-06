@@ -6,7 +6,9 @@ import SourceController from "../_Modules/SourceController";
 import CuttedAudioController from "../_Modules/CuttedAudioController";
 import MixedAudioController from "../_Modules/MixedAudioController";
 
-const MixerWrapper = styled.div``;
+const MixerWrapper = styled.div`
+  width: 100%;
+`;
 
 function MixerTemplate() {
   const [sources, setSources] = useState([]);

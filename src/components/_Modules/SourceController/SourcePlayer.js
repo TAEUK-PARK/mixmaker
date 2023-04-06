@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
@@ -6,11 +5,11 @@ import PropTypes from "prop-types";
 
 import Icon from "../../_Atoms/Icon";
 
-import { GiPauseButton, GiThermometerCold } from "react-icons/gi";
+import { GiPauseButton } from "react-icons/gi";
 import { FaPlay, FaStop } from "react-icons/fa";
 import { HiScissors } from "react-icons/hi";
 
-import { COLOR_BLACK } from "../../../constants/colors";
+import { COLOR_GREEN, COLOR_RED, COLOR_WHITE } from "../../../constants/colors";
 import {
   SAMPLE_PER_SEC,
   WAVE_WIDTH_MULTIFLIER,
@@ -29,6 +28,9 @@ import changeOffsetXToSec from "../../../utils/audio/changeOffsetXToSec";
 const SourcePlayerWrapper = styled.div`
   display: inline-flex;
   margin: 0 auto;
+  * {
+    margin: 0 5px;
+  }
 `;
 
 function SourcePlayer({
@@ -42,7 +44,7 @@ function SourcePlayer({
 }) {
   const [isPlaying, setIsPlaying] = useState({
     state: false,
-    iconColor: COLOR_BLACK,
+    iconColor: COLOR_WHITE,
   });
   const [playingTimer, setPlayingTimer] = useState();
   const [isAudioChanged, setIsAudioChanged] = useState(false);
@@ -258,15 +260,22 @@ function SourcePlayer({
     <SourcePlayerWrapper>
       <Icon
         color={isPlaying.iconColor}
-        width={"50px"}
         onClick={isPlaying.state ? handlePauseClick : handlePlayClick}
       >
         {(isPlaying.state && <GiPauseButton />) || <FaPlay />}
       </Icon>
-      <Icon color={COLOR_BLACK} width={"50px"} onClick={handleStopClick}>
+      <Icon
+        color={COLOR_WHITE}
+        hoverColor={COLOR_RED}
+        onClick={handleStopClick}
+      >
         <FaStop />
       </Icon>
-      <Icon color={COLOR_BLACK} width={"50px"} onClick={handleCutClick}>
+      <Icon
+        color={COLOR_WHITE}
+        hoverColor={COLOR_GREEN}
+        onClick={handleCutClick}
+      >
         <HiScissors />
       </Icon>
     </SourcePlayerWrapper>
