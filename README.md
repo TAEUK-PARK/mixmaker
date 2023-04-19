@@ -206,6 +206,7 @@ Brad Frost의 Atomic design pattern에 따르면 컴포넌트를 아래 다섯�
 
 평소 오디오에 대한 지식이 있던 것도 아니고 기존에 javascript로 오디오를 비롯한 어떤 파일도 편집하거나 다뤄본 적이 없었습니다. 그런만큼 javascript상의 파일구조 및 오디오 파일 구조를 파악하는 것이 먼저 필요했습니다. 하지만 이전에 javascript보다 더 low level인 컴퓨터 언어에 대한 이해도가 거의 없었기 때문에 지금 단계에서는 완전히 깊은 이해보다는 사용할 수 있는 부분을 이해하려고 하였습니다.
 <br/>
+
 - file(blob)을 arrayBuffer로 변환
 - arrayBuffer를 web audio api를 이용하기 위해 audioBuffer로 변환
 - audioBuffer를 배열 로직을 통해 자르기, 합치기

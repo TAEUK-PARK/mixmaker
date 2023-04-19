@@ -5,6 +5,7 @@ import styled from "styled-components";
 import SourceController from "../_Modules/SourceController";
 import CuttedAudioController from "../_Modules/CuttedAudioController";
 import MixedAudioController from "../_Modules/MixedAudioController";
+import InfoModal from "../_Modules/InfoModal/InfoModal";
 
 const MixerWrapper = styled.div`
   width: 100%;
@@ -48,6 +49,7 @@ function MixerTemplate() {
 
   return (
     <MixerWrapper>
+      <InfoModal></InfoModal>
       <SourceController
         sources={sources}
         addSource={addSource}
