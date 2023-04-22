@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/Styled Components-DB7093?style=flat-square&logo=styled-components&logoColor=black"/>
   <img src="https://img.shields.io/badge/Web Audio API-007CE2?style=flat-square"/>
   <img src="https://img.shields.io/badge/AudioWorklet-007CE2?style=flat-square"/>
-  <!-- <img src="https://api.netlify.com/api/v1/badges/2af3c3e4-7d8c-4e2d-97fe-df89463460d7/deploy-status"  alt="Netlify-deploy-status" /> -->
+  <img src="https://api.netlify.com/api/v1/badges/2af3c3e4-7d8c-4e2d-97fe-df89463460d7/deploy-status"  alt="Netlify-deploy-status" />
 </p>
 
 ## Introduction
