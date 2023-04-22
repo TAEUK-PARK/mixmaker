@@ -1,7 +1,7 @@
 # Mixmaker
 
 <p align="center">
-  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/204131792-f0ac29e2-a4cf-4778-9ff2-fef7d9005f4c.png" alt="vanillaide-logo" />
+  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/233785493-712a6327-ebd4-49f3-b8c5-3c30389705af.png" alt="vanillaide-logo" />
 </p>
 
 <p align="center">
@@ -217,7 +217,7 @@ Brad Frost의 Atomic design pattern에 따르면 컴포넌트를 아래 다섯�
 ### Recording & Uploading
 
 <p align="center">
-  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/204138548-e4bc3a92-4e3f-4066-bdf8-72c2e9ab6571.png" alt="source" />
+  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/233785532-e7a7afaf-486d-4c14-9782-4e0041edff61.png" alt="source" />
 </p>
 
 - 상단의 Record, Upload 버튼을 클릭하여 오디오 소스를 녹음하거나 가져올 수 있습니다.
@@ -227,7 +227,7 @@ Brad Frost의 Atomic design pattern에 따르면 컴포넌트를 아래 다섯�
 ### Playing
 
 <p align="center">
-  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/204139472-d3748670-6dc2-40d9-b8d9-60ada27584d8.gif" alt="source" />
+  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/233785589-0836e897-b6a8-4502-858f-3247d6ad5205.gif" alt="source" />
 </p>
 
 - 재생 및 정지 버튼을 클릭하여 오디오 소스를 재생할 수 있습니다.
@@ -237,7 +237,7 @@ Brad Frost의 Atomic design pattern에 따르면 컴포넌트를 아래 다섯�
 ### Cutting
 
 <p align="center">
-  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/204139529-7cf2f08b-7cac-47c7-9826-a19e0b488c4d.png" alt="source" />
+  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/233785656-e4b2fd6d-25e8-4431-810e-d614f3756dc0.png" alt="source" />
 </p>
 
 - 선택한 구간을 잘라낼 수 있습니다.
@@ -246,7 +246,7 @@ Brad Frost의 Atomic design pattern에 따르면 컴포넌트를 아래 다섯�
 ### Mixing
 
 <p align="center">
-  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/204139572-d5771ed1-7932-41c5-8526-c2d7abb8630e.png" alt="source" />
+  <img style="width:500px" src="https://user-images.githubusercontent.com/110377189/233785684-d8837347-8a48-4215-849e-2ee0535f05db.png" alt="source" />
 </p>
 
 - 잘라낸 오디오를 drag and drop 하여 순서를 정할 수 있습니다.
