@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { COLOR_WHITE, COLOR_GRAY_HIGHLIGHT } from "../../constants/colors";
@@ -18,10 +18,8 @@ const ModalWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 50%;
-  min-height: 50%;
-  max-width: 70%;
-  max-height: 50%;
+  width: ${(props) => `${props.currentWidth * 0.8}px`};
+  height: ${(props) => `${props.currentWidth * 0.8 * 0.5625}px`};
   padding: 20px;
   background-color: ${COLOR_WHITE};
   border-radius: 12px;
@@ -44,9 +42,23 @@ const ModalWrapper = styled.div`
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Overlay onClick={onClose}>
-      <ModalWrapper onClick={(e) => e.stopPropagation()}>
+      <ModalWrapper onClick={(e) => e.stopPropagation()} currentWidth={width}>
         {children}
       </ModalWrapper>
     </Overlay>
